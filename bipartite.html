@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Celine Dupuis</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="stylesheet/basic.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <style>
+        .mainBars {
+            shape-rendering: auto;
+            fill-opacity: 0;
+            stroke-width: 2px;
+            stroke: rgb(255, 255, 255);
+            stroke-opacity: 0;
+        }
+        
+        .subBars {
+            shape-rendering: crispEdges;
+        }
+        
+        .edges {
+            stroke: none;
+            fill-opacity: 0.3;
+        }
+        
+        .label {
+            fill-opacity: 1;
+            fill: rgb(255, 255, 255);
+            font-size: 12px;
+        }
+        
+        .perc {
+            fill-opacity: 0.6;
+            fill: rgb(255, 255, 255);
+            font-size: 10px;
+        }
+    </style>
+</head>
+
+<body class="w3-black">
+    <div class="w3-padding-32">
+        <div class="w3-animate-zoom w3-center w3-padding-32">
+            <h1> Gender Ratio in Healthcare </h1>
+            <h3> 1985-2005 </h3>
+            <br>
+            <svg width="800px" height="600px"></svg>
+            <script src="https://d3js.org/d3.v4.min.js"></script>
+            <script src="http://vizjs.org/viz.v1.1.0.min.js"></script>
+            <script>
+                var _data = [
+                    ['Homme', 'Médecins', 8845],
+                    ['Homme', 'Dentistes', 1450],
+                    ['Homme', 'Soins Infirmiers', 5768],
+                    ['Homme', 'Aide soignant', 2016],
+                    ['Homme', 'Sage-femmes', 0],
+
+                    ['Femme', 'Médecins', 6499],
+                    ['Femme', 'Dentistes', 743],
+                    ['Femme', 'Soins Infirmiers', 47506],
+                    ['Femme', 'Aide soignant', 21692],
+                    ['Femme', 'Sage-femmes', 2000]
+                ];
+
+                var colorPrimary = {
+                    Homme: "#4287f5",
+                    Femme: "#F95151",
+                };
+
+                var secondary = ["Sage-femmes", "Aide soignant", "Soins Infirmiers", "Médecins", "Dentistes"];
+
+                function sortSec(a, b, c, d, e) {
+                    return d3.ascending(secondary.indexOf(a), secondary.indexOf(b), secondary.indexOf(c), secondary.indexOf(d), secondary.indexOf(e));
+                }
+
+                var svg = d3.select("svg");
+                var g = svg.append("g").attr("transform", "translate(200, 10)");
+                var bp = viz.bP()
+                    .data(_data)
+                    .pad(5)
+                    .height(450)
+                    .width(400)
+                    .barSize(35)
+                    .sortSecondary(sortSec)
+                    .orient("vertical")
+                    .fill(d => colorPrimary[d.primary]);
+
+                g.call(bp);
+
+                g.selectAll(".mainBars")
+                    .on("mouseover", mouseover)
+                    .on("mouseout", mouseout);
+
+                g.selectAll(".mainBars").append("text").attr("class", "label")
+                    .attr("x", d => d.part == "primary" ? -30 : 30)
+                    .attr("y", d => 0)
+                    .text(d => d.key)
+                    .attr("text-anchor", d => d.part == "primary" ? "end" : "start");
+
+                g.selectAll(".mainBars").append("text").attr("class", "perc")
+                    .attr("x", d => (d.part == "primary" ? -30 : 30))
+                    .attr("y", d => (d.part == "primary" ? 12 : 12))
+                    .attr("text-anchor", d => d.part == "primary" ? "end" : "start")
+                    .text(d => d3.format("0.0%")(d.percent));
+
+
+                function mouseover(d) {
+                    var keySelected = d.key;
+                    var primarySelected = d.part;
+                    bp.mouseover(d);
+                    g.selectAll(".mainBars")
+                        .select(".perc")
+                        .style("opacity", d => d.key == keySelected || d.part == "primary" || primarySelected == "primary" ? 1 : 0.2)
+                        .text(d => d3.format("0.0%")(d.percent));
+                    g.selectAll(".mainBars")
+                        .select(".label")
+                        .style("opacity", d => d.key == keySelected || d.part == "primary" || primarySelected == "primary" ? 1 : 0.2);
+                }
+
+                function mouseout(d) {
+                    bp.mouseout(d);
+                    g.selectAll(".mainBars")
+                        .select(".perc")
+                        .style("opacity", 1)
+                        .text(d => d3.format("0.0%")(d.percent));
+                    g.selectAll(".mainBars")
+                        .select(".label")
+                        .style("opacity", 1);
+                }
+            </script>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
