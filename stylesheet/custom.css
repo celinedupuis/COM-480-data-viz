@@ -1,0 +1,112 @@
+html {
+    scroll-behavior: smooth;
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    font-size: 12px;
+}
+
+h1 {
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    line-height: 26.4px;
+}
+
+h3 {
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+    line-height: 15.4px;
+}
+
+p {
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 12px;
+    color: lightgray;
+}
+
+a:hover {
+    font-weight: bold;
+    color: white;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+#section1 {
+    height: 100vh;
+}
+
+#section2 {
+    height: 100vh;
+}
+
+.section {
+    max-width: 800px;
+    margin: auto;
+    text-align: justify;
+    padding: 10px;
+}
+
+.label {
+    fill-opacity: 1;
+    fill: rgb(255, 255, 255);
+    font-size: 14px;
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+
+/* MAP */
+
+.canton {
+    stroke-width: 0.5px;
+    stroke: rgb(255, 255, 255);
+}
+
+.infoCanton {
+    fill: white;
+    font-size: 24px;
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+
+/* BIPARTITE */
+
+.mainBars {
+    shape-rendering: auto;
+    fill-opacity: 0;
+    stroke-width: 2px;
+    stroke: rgb(255, 255, 255);
+    stroke-opacity: 0;
+}
+
+.subBars {
+    shape-rendering: crispEdges;
+}
+
+.edges {
+    stroke: none;
+    fill-opacity: 0.3;
+}
+
+.perc {
+    fill-opacity: 0.6;
+    fill: rgb(255, 255, 255);
+    font-size: 10px;
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
