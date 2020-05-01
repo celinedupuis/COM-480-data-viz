@@ -89,7 +89,7 @@ As part of my inspiration is the current interactive dataviz for COVID progressi
 
 ## Milestone 2 (Friday 1st May, 5pm)
 **10% of the final grade**
-
+Check Milestone2.pdf
 
 
 ## Milestone 3 (Thursday 28th May, 5pm)
