@@ -21,7 +21,7 @@ class SwissMap {
             .projection(projection);
 
         // Data
-        const population_promise = d3.csv("data/swiss-indicators-2020.csv").then((data) => {
+        const population_promise = d3.csv("../data/swiss_indicators_2020.csv").then((data) => {
             let cantonId_to_population = {};
             data.forEach((row) => {
                 cantonId_to_population[row.id] = parseFloat(row.population);
@@ -29,7 +29,7 @@ class SwissMap {
             return cantonId_to_population;
         });
 
-        const map_promise = d3.json("data/ch-cantons.json").then((topojson_raw) => {
+        const map_promise = d3.json("../data/ch-cantons.json").then((topojson_raw) => {
             const canton_paths = topojson.feature(topojson_raw, topojson_raw.objects.cantons);
             return canton_paths.features;
         });
@@ -44,7 +44,7 @@ class SwissMap {
 
             // Color Scale
             const color_scale = d3.scaleLog()
-                .range(["hsl(0, 0%, 90%)", "hsl(0, 0%, 35%)"])
+                .range(["hsl(0, 0%, 90%)", "hsl(0, 0%, 40%)"])
                 .interpolate(d3.interpolateHcl)
                 .domain([d3.min(map_data, d => d.properties.density), d3.max(map_data, d => d.properties.density)]);
 

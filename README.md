@@ -1,11 +1,14 @@
 # Project of Data Visualization (COM-480)
 
+## _Physical and human resources  in the healthcare system in Switzerland_
+
+**The goal of this project is to analyse the healthcare human and physical resources per canton in Switzerland. Does the number of beds in intensive care unit vary with the number of inhabitants per canton ? Does the number of resources per cantons vary with the growth domestic product per capita ? What is the gender repartition in healthcare practionners ? I will try to answer these questions through interactive dataviz, based on both recent datasets (2020) and historical data.**
+
 [Milestone 1](#milestone-1-friday-3rd-april-5pm) • [Milestone 2](#milestone-2-friday-1st-may-5pm) • [Milestone 3](#milestone-3-thursday-28th-may-5pm)
 
 ## Milestone 1 (Friday 3rd April, 5pm)
 **10% of the final grade**
 
-## _Physical and human resources  in the healthcare system in Switzerland_
 ### Problematic
 In the context of COVID19, physical and human resources in the healthcare system are at the center of the crisis. The _#stayathome_ movement is specifically important to slow down the propagation of the virus and avoid an overwhelming situation in hospitals and clinics. 
 
@@ -35,7 +38,7 @@ Three datasets have been selected on [opendata.swiss] (https://opendata.swiss/en
 	 
 The average length of stay in 2018 with respect to the different sectors has been plotted on Figure 1, and the number of patients going out with respect to the different sectors stands on Figure 2. 
 
-![Figure 1](/figure/Figure12.png)
+![Figure 1](/milestones/figure/Figure12.png)
 
 In Figure 1, we can see that the average length of stay in hospitals is between 5.2 days and 6.4 days, which looks close to the 5.9 days given in the Health System Review for the year 2013. The average length of stay in rehabilitation clinics is 24.6 days and 34.4 days for psychiatrics clinics, which is much longer than in hospitals. 
 
@@ -50,7 +53,7 @@ In Figure 2, we can see that the number of patients going out of the hospitals i
 
 In this dataset, the categories are slightly different than in [Dataset 1], despite the fact that they both correspond to healthcare sectors. We can however consider “soins aigus et maison de naissance” (blue sector in Figure 3) to correspond to the hospitals categories in [Dataset 1], in opposition to the  “phychiatrie” and “réadaptation/gériatrie” (red and green sectors in Figure 3) corresponding to the specialized clinics in [Dataset 1]. 
 
-![Figure 3](/figure/Figure34.png)
+![Figure 3](/milestones/figure/Figure34.png)
 
 In [Dataset 1], the number of out-going patient from hospitals is 84%. Here, as shown in Figure 4, the number of hospitalizations in hospitals correspond to 88% of the total number of hospitalizations. By comparing the proportion between the two charts in Figure 3 and Figure 4, there are less beds in hospitals than the number of hospitalization in hospitals in terms of percentage. With this ascertainment, the length of stay in hospital will play a key role to avoid to clog the healthcare system.
 
@@ -64,7 +67,7 @@ In [Dataset 1], the number of out-going patient from hospitals is 84%. Here, as 
 	            | Sage-femmes
 	Sort by     | Sexe
 
-![Figure 5](/figure/Figure5.png)
+![Figure 5](/milestones/figure/Figure5.png)
 
 
 The third dataset spans over 20 years which allows to visualize the trend over time. By plotting the male/female ratio for each category of jobs (Figure 5), we can see that the gender gap is going down over the years for doctors and dentists but does not change (or even get bigger) for the nurses, caregivers and midwives. What is also very interesting in this dataset is that all the categories contains two columns for male and female, except for the midwives. Is it really true that no man were practionners in this field before 2005 or it is just because the name of the function is gender-biased?
@@ -89,8 +92,8 @@ As part of my inspiration is the current interactive dataviz for COVID progressi
 
 ## Milestone 2 (Friday 1st May, 5pm)
 **10% of the final grade**
-Check Milestone2.pdf
 
+Check milestones/Milestone2.pdf
 
 ## Milestone 3 (Thursday 28th May, 5pm)
 **80% of the final grade**
