@@ -21,10 +21,10 @@ class SwissMap {
             .projection(projection);
 
         // Data
-        const population_promise = d3.csv("data/cantons-population.csv").then((data) => {
+        const population_promise = d3.csv("data/swiss-indicators-2020.csv").then((data) => {
             let cantonId_to_population = {};
             data.forEach((row) => {
-                cantonId_to_population[row.code] = parseFloat(row.density);
+                cantonId_to_population[row.id] = parseFloat(row.population);
             });
             return cantonId_to_population;
         });
