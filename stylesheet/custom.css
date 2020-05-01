@@ -20,6 +20,7 @@ h3 {
     font-variant: normal;
     font-weight: 700;
     line-height: 15.4px;
+    padding-top: 35px;
 }
 
 p {
@@ -31,36 +32,22 @@ p {
     line-height: 20px;
 }
 
-a {
-    text-decoration: none;
-    font-weight: bold;
-    font-style: italic;
-    font-size: 12px;
-    color: lightgray;
+.sectionPanel {
+    height: 90vh;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    max-width: 1024px;
+    padding-top: 64px;
 }
 
-a:hover {
-    font-weight: bold;
-    color: white;
-}
-
-nav ul {
-    list-style-type: none;
-}
-
-#section1 {
-    height: 100vh;
-}
-
-#section2 {
-    height: 100vh;
-}
-
-.section {
-    max-width: 800px;
+.sectionText {
+    max-width: 900px;
     margin: auto;
     text-align: justify;
     padding: 10px;
+    margin: 30;
 }
 
 .label {
@@ -68,6 +55,69 @@ nav ul {
     fill: rgb(255, 255, 255);
     font-size: 14px;
     font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+.footnote {
+    max-width: 900px;
+    margin: auto;
+    text-align: justify;
+    padding: 10px;
+    margin: 30;
+    font-size: 10px;
+}
+
+a {
+    text-decoration: none;
+    font-size: 10px;
+    color: grey;
+}
+
+a:hover {
+    font-weight: bold;
+    color: white;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: black;
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+.topnav a {
+    float: center;
+    color: grey;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 12px;
+    font-style: normal;
+}
+
+.topnav a:hover {
+    color: white;
+    font-style: bold;
+}
+
+.topnav a.active {
+    color: white;
+    font-style: bold;
+}
+
+.topnav li {
+    list-style-type: none;
+    display: inline-block;
+}
+
+header {
+    background-color: #000000;
+    opacity: 1.0;
+    margin-bottom: 10px;
+}
+
+footer {
+    font-size: 9px;
+    color: #808080;
+    bottom: 0;
 }
 
 

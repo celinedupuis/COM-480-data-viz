@@ -131,8 +131,7 @@ class SwissMap {
                                 return "";
                             }
                         })
-                    scrollBy(0, svg_viewbox.height * 2 / 3);
-
+                    scrollBy(0, svg_viewbox.height / 2);
                 } else {
                     mouseout(d, i);
                 }

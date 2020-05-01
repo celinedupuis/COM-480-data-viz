@@ -11,40 +11,63 @@
 </head>
 
 <body class="w3-black">
-    <nav class="w3-top w3-padding-32">
-        <ul>
-            <li><a href="#section1">Interactive Swiss Map</a></li>
-            <li><a href="#section2">Historical Data</a></li>
-            <li><a href="#section3">Gender Ratio</a></li>
-        </ul>
-    </nav>
 
-    <!-- Data Viz Sections -->
+
+    <header class="w3-top w3-center w3-padding-8">
+        <h1>Resources in the healthcare system in Switzerland</h1>
+        <div class="topnav">
+            <a class="active" href="#section1">Swiss Map</a>
+            <a href="#section3 ">Physical Resources</a>
+            <a href="#section4 ">Human Resources</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
     <div class="w3-animate-zoom w3-center ">
-        <div id="section1" class="w3-padding-32 ">
-            <h1> Healthcare system in Switzerland </h1>
-            <svg id="interactiveSwissMap" width="1024px " height="600px" viewBox="0 0 1024 768 "></svg>
+
+        <!-- Section 1: Interactive Map -->
+        <div class="sectionPanel" id="section1">
+            <svg id="interactiveSwissMap" width="1024px " height="600px " viewBox="0 0 1024 768"></svg>
         </div>
 
-        <div id="section2" class="w3-padding-32 ">
-            <h1> Historical Data </h1>
-            <a href="#section1">Go back to map</a>
-            <svg width="1024px " height="400px" viewBox="0 0 1024 400 "></svg>
+        <!-- Section 2: Regional Indicators -->
+        <div class="sectionPanel" id="section2">
+            <br> <br> <br> <br>
+            <div class="w3-half">
+                <img src="img/demographic-icon.svg ">
+                <p id="demographic ">1’035’000 inhabitants<br><br></p>
+                <img src="img/doctor-icon.svg ">
+                <p>2.25 doctors for 1000 inhabitants<br><br></p>
+            </div>
+            <div class="w3-half ">
+                <img src="img/icu-icon.svg ">
+                <p>79 beds in intensive care unit<br><br></p>
+                <img src="img/bed-icon.svg ">
+                <p>4.8 beds for 1000 inhabitants<br><br></p>
+            </div>
         </div>
 
-        <div id="section3" class="w3-padding-32">
-            <h1> Unbalanced Gender Ratio</h1>
-            <p class="section"> Between 1985 and 2005, 81% of women for only 19% of men obtained a diploma in healthcare. This unbalanced ratio might result in women being more impacted during a pandemic, when healthcare practionners are massively recruited at the forefront.
-                What is even more striking is the gender gap between high-paying jobs and less-paying jobs. Indeed, over ten years, 93% of woman studied to become caregivers, nurses and midwives, whereas only 38% received a diploma to become a dentist
-                or a doctor. As salary equity is often used as an argument to show gender equality in an industry, the access to high-paying jobs should also be given for the sake of transparency; it still remains more difficult for women to access top-management
-                postions and "prestigious" occupations. The following interactive dataviz entitles to show this disparity in healthcare. </p>
-            <svg id="bipartite" width="1024px " height="600px" viewBox="0 0 1024 768 "></svg>
+        <!-- Section 3 -->
+        <div class="sectionPanel" id="section3">
+            <svg id="bubbleChart" width="1024px" height="600px" viewBox="0 0 1024 768"></svg>
+        </div>
+
+        <!-- Section 4 -->
+        <div class="sectionPanel" id="section4">
+            <h3> Unbalanced Gender Ratio</h3>
+            <p class="sectionText"> Between 1985 and 2005, 81% of women for only 19% of men obtained a diploma in healthcare. What is even more striking is the gender gap between high-paying jobs and less-paying jobs. Indeed, over ten years, 93% of woman studied to become caregivers,
+                nurses and midwives, whereas only 38% received a diploma to become a dentist or a doctor. As salary equity is often used as an argument to show gender equality in an industry, the access to high-paying jobs should also be given for the
+                sake of transparency; it still remains more difficult for women to access top-management postions and "prestigious " occupations. The following interactive dataviz entitles to show this disparity in healthcare.
+            </p>
+            <svg id="bipartite" width="1024px" height="670px" viewBox="0 0 1024 768"></svg>
+            <!--p class="footnote "> What is also very interesting in this dataset is that all the categories contains two columns for male and female, except for the midwives. Is it really true that no man were practionners in this field before 2005 or it is just because the
+                name of the function is gender-biased?</p-->
         </div>
     </div>
 
     <!-- Load Scripts -->
-    <script src="lib/d3.min.js"></script>
-    <script src="lib/topojson.min.js"></script>
+    <script src="lib/d3.min.js "></script>
+    <script src="lib/topojson.min.js "></script>
     <script src="http://vizjs.org/viz.v1.1.0.min.js "></script>
     <script src="javascript/interactiveSwissMap.js "></script>
     <script src="javascript/genderBipartite.js "></script>
