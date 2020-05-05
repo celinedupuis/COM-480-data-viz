@@ -24,26 +24,30 @@
 
     <!-- Main Content -->
     <div class="w3-animate-zoom w3-center ">
-
         <!-- Section 1: Interactive Map -->
         <div class="sectionPanel" id="section1">
             <svg id="interactiveSwissMap" width="1024px " height="600px " viewBox="0 0 1024 768"></svg>
-        </div>
-
-        <!-- Section 2: Regional Indicators -->
-        <div class="sectionPanel" id="section2">
-            <br> <br> <br> <br>
-            <div class="w3-half">
-                <img src="img/demographic-icon.svg ">
-                <p id="demographic ">1’035’000 inhabitants<br><br></p>
-                <img src="img/doctor-icon.svg ">
-                <p>2.25 doctors for 1000 inhabitants<br><br></p>
-            </div>
-            <div class="w3-half ">
-                <img src="img/icu-icon.svg ">
-                <p>79 beds in intensive care unit<br><br></p>
-                <img src="img/bed-icon.svg ">
-                <p>4.8 beds for 1000 inhabitants<br><br></p>
+            <!--div class="beds" id="bedTab">Beds</div>
+            <div class="density" id="densityTab">Density</div-->
+            <div id="indicators">
+                <h3 id="indicator-name">Switzerland</h3>
+                <br>
+                <div class="w3-quarter">
+                    <img src="img/demographic-icon.svg">
+                    <p id="indicator-demographic">8’544’527 <br>inhabitants</p>
+                </div>
+                <div class="w3-quarter ">
+                    <img src="img/doctor-icon.svg">
+                    <p id="indicator-doctors">2.26 doctors <br>for 1000 inhabitants</p>
+                </div>
+                <div class="w3-quarter">
+                    <img src="img/icu-icon.svg">
+                    <p id="indicator-icuBeds">981 beds <br>in intensive care unit</p>
+                </div>
+                <div class="w3-quarter">
+                    <img src="img/bed-icon.svg">
+                    <p id="indicator-beds">4.4 beds <br>for 1000 inhabitants</p>
+                </div>
             </div>
         </div>
 
@@ -64,7 +68,6 @@
                 name of the function is gender-biased?</p-->
         </div>
     </div>
-
     <!-- Load Scripts -->
     <script src="lib/d3.min.js "></script>
     <script src="lib/topojson.min.js "></script>

@@ -20,7 +20,7 @@ h3 {
     font-variant: normal;
     font-weight: 700;
     line-height: 15.4px;
-    padding-top: 35px;
+    margin-top: -30px;
 }
 
 p {
@@ -55,6 +55,16 @@ p {
     fill: rgb(255, 255, 255);
     font-size: 14px;
     font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+.beds {
+    background-color: red;
+    padding: 30px;
+}
+
+.density {
+    padding: 30px;
+    background-color: blue;
 }
 
 .footnote {
