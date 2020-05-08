@@ -6,7 +6,7 @@ html {
 
 h1 {
     font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-    font-size: 24px;
+    font-size: 28px;
     font-style: normal;
     font-variant: normal;
     font-weight: 700;
@@ -15,12 +15,12 @@ h1 {
 
 h3 {
     font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     font-style: normal;
     font-variant: normal;
     font-weight: 700;
     line-height: 15.4px;
-    margin-top: -30px;
+    padding-top: 40px;
 }
 
 p {
@@ -36,10 +36,16 @@ p {
     height: 90vh;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 32px;
-    margin-bottom: 32px;
     max-width: 1024px;
     padding-top: 64px;
+}
+
+.sectionIcons {
+    padding-top: 64px;
+    height: 30vh;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 900px;
 }
 
 .sectionText {
@@ -57,16 +63,6 @@ p {
     font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 
-.beds {
-    background-color: red;
-    padding: 30px;
-}
-
-.density {
-    padding: 30px;
-    background-color: blue;
-}
-
 .footnote {
     max-width: 900px;
     margin: auto;
@@ -78,7 +74,7 @@ p {
 
 a {
     text-decoration: none;
-    font-size: 10px;
+    font-size: 12px;
     color: grey;
 }
 
@@ -141,6 +137,29 @@ footer {
 .infoCanton {
     fill: white;
     font-size: 24px;
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+
+/* BUBBLE CHART */
+
+circle {
+    stroke: white;
+    stroke-width: 1px;
+}
+
+.middle {
+    fill: #4287f5;
+}
+
+.high {
+    fill: #F95151;
+}
+
+.label-bubble {
+    fill-opacity: 1;
+    fill: rgb(255, 255, 255);
+    font-size: 12px;
     font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 

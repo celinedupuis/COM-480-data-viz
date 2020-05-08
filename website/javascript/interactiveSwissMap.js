@@ -99,11 +99,11 @@ class SwissMap {
                 const cantonOver = d.id;
                 cantonSelectedID = d.id;
                 if (!cantonSelected) {
+                    updateIndicators();
                     d3.selectAll(".canton")
                         .style("stroke-width", d => d.id == cantonOver ? 3 : 0.5)
                         .style("fill", d => d.id == cantonOver ? red : color_scale(d.properties.density));
                 }
-                updateIndicators();
             }
 
             function mouseout(d) {
@@ -144,8 +144,6 @@ class SwissMap {
                 document.getElementById("indicator-demographic").innerHTML = demographic;
                 document.getElementById("indicator-beds").innerHTML = beds;
                 document.getElementById("indicator-doctors").innerHTML = doctors;
-
-                overlayIndicators();
             }
 
             // Change Cholorpleth

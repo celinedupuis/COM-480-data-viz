@@ -16,9 +16,10 @@
     <header class="w3-top w3-center w3-padding-8">
         <h1>Resources in the healthcare system in Switzerland</h1>
         <div class="topnav">
-            <a class="active" href="#section1">Swiss Map</a>
-            <a href="#section3 ">Physical Resources</a>
-            <a href="#section4 ">Human Resources</a>
+            <a class="active" href="#section1">Cholorpleth</a>
+            <a href="#section2">Icons</a>
+            <a href="#section3">Bubble Chart</a>
+            <a href="#section4">Bipartite</a>
         </div>
     </header>
 
@@ -27,36 +28,39 @@
         <!-- Section 1: Interactive Map -->
         <div class="sectionPanel" id="section1">
             <svg id="interactiveSwissMap" width="1024px " height="600px " viewBox="0 0 1024 768"></svg>
-            <!--div class="beds" id="bedTab">Beds</div>
-            <div class="density" id="densityTab">Density</div-->
+        </div>
+
+        <!-- Section 2: Icons -->
+        <div class="sectionIcons" id="section2">
             <div id="indicators">
                 <h3 id="indicator-name">Switzerland</h3>
                 <br>
-                <div class="w3-quarter">
+                <div class="w3-third">
                     <img src="img/demographic-icon.svg">
                     <p id="indicator-demographic">8’544’527 <br>inhabitants</p>
                 </div>
-                <div class="w3-quarter ">
+                <div class="w3-third ">
                     <img src="img/doctor-icon.svg">
                     <p id="indicator-doctors">2.26 doctors <br>for 1000 inhabitants</p>
                 </div>
-                <div class="w3-quarter">
-                    <img src="img/icu-icon.svg">
-                    <p id="indicator-icuBeds">981 beds <br>in intensive care unit</p>
-                </div>
-                <div class="w3-quarter">
+                <div class="w3-third">
                     <img src="img/bed-icon.svg">
                     <p id="indicator-beds">4.4 beds <br>for 1000 inhabitants</p>
                 </div>
             </div>
         </div>
 
-        <!-- Section 3 -->
+        <!-- Section 3: Bubble Chart -->
         <div class="sectionPanel" id="section3">
+            <h3> Does the number of resources vary with the growth domestic product per capita ? </h3>
+            <p class="sectionText"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna fringilla pulvinar ullamcorper, metus nulla volutpat felis, in tempus tellus nibh et nulla. Phasellus sagittis euismod molestie. Ut efficitur interdum diam, id ullamcorper
+                justo. In consequat eu augue non varius. Phasellus at nulla sollicitudin, accumsan orci sit amet, auctor tortor. Sed dapibus in arcu at sodales. Morbi rhoncus commodo nisl. Nam consequat ut nisl at fringilla. Nulla volutpat vitae metus
+                quis molestie.
+            </p>
             <svg id="bubbleChart" width="1024px" height="600px" viewBox="0 0 1024 768"></svg>
         </div>
 
-        <!-- Section 4 -->
+        <!-- Section 4: Bipartite Graph -->
         <div class="sectionPanel" id="section4">
             <h3> Unbalanced Gender Ratio</h3>
             <p class="sectionText"> Between 1985 and 2005, 81% of women for only 19% of men obtained a diploma in healthcare. What is even more striking is the gender gap between high-paying jobs and less-paying jobs. Indeed, over ten years, 93% of woman studied to become caregivers,
@@ -73,6 +77,7 @@
     <script src="lib/topojson.min.js "></script>
     <script src="http://vizjs.org/viz.v1.1.0.min.js "></script>
     <script src="javascript/interactiveSwissMap.js "></script>
+    <script src="javascript/bubbleChart.js "></script>
     <script src="javascript/genderBipartite.js "></script>
 </body>
 </htm
