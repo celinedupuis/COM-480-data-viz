@@ -55,8 +55,8 @@ class BubbleChart {
             .enter()
             .append('text')
             .text(d => d.id)
-            .attr('x', d => x_scale(d.properties.density))
-            .attr('y', d => y_scale(d.properties.beds) - 50)
+            .attr('x', d => x_scale(d.properties.density) + 15)
+            .attr('y', d => y_scale(d.properties.beds) - 15)
             .classed("label-bubble", true);
     }
 }

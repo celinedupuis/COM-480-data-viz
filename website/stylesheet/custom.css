@@ -63,40 +63,10 @@ a {
     color: grey;
 }
 
-a:hover {
-    font-weight: bold;
-    color: white;
-}
-
 .topnav {
     overflow: hidden;
     background-color: black;
     font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-}
-
-.topnav a {
-    float: center;
-    color: grey;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 12px;
-    font-style: normal;
-}
-
-.topnav a:hover {
-    color: white;
-    font-style: bold;
-}
-
-.topnav a.active {
-    color: white;
-    font-style: bold;
-}
-
-.topnav li {
-    list-style-type: none;
-    display: inline-block;
 }
 
 .btn {
@@ -105,6 +75,7 @@ a:hover {
     padding: 10px 16px;
     cursor: pointer;
     font-size: 14px;
+    font-style: italic;
 }
 
 .active,
@@ -123,6 +94,25 @@ footer {
     font-size: 9px;
     color: #808080;
     bottom: 0;
+}
+
+.physicalResourcesButton,
+.humanResourcesButton {
+    cursor: pointer;
+    border: 1px solid white;
+    outline-style: solid;
+    outline-width: 0.3px;
+    display: inline-block;
+    padding: 10px 16px;
+    margin: 10px;
+    font-size: 12px;
+}
+
+.activeButton,
+.physicalResourcesButton:hover,
+.humanResourcesButton:hover {
+    font-style: bold;
+    border: 1px solid #F95151;
 }
 
 

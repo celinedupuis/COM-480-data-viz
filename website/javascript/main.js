@@ -9,12 +9,31 @@ function whenDocumentLoaded(action) {
 whenDocumentLoaded(() => {
 
     // Nav
-    var btns = document.getElementsByClassName("btn");
-    for (var i = 0; i < btns.length; i++) {
-        btns[i].addEventListener("click", function() {
-            var current = document.getElementsByClassName("active");
+    const tabBtn = document.getElementsByClassName("btn");
+    for (let i = 0; i < tabBtn.length; i++) {
+        tabBtn[i].addEventListener("click", function() {
+            let current = document.getElementsByClassName("active");
             current[0].className = current[0].className.replace(" active", "");
             this.className += " active";
+        });
+    }
+
+    const btnsPhysicalMode = document.getElementsByClassName("physicalResourcesButton");
+    const btnsHumanMode = document.getElementsByClassName("humanResourcesButton");
+
+    for (let i = 0; i < btnsPhysicalMode.length; i++) {
+        btnsPhysicalMode[i].addEventListener("click", function() {
+            for (let i = 0; i < btnsPhysicalMode.length; i++) {
+                btnsHumanMode[i].className = btnsHumanMode[i].className.replace(" activeButton", "");
+                btnsPhysicalMode[i].className += " activeButton";
+            }
+        });
+
+        btnsHumanMode[i].addEventListener("click", function() {
+            for (let i = 0; i < btnsHumanMode.length; i++) {
+                btnsPhysicalMode[i].className = btnsPhysicalMode[i].className.replace(" activeButton", "");
+                btnsHumanMode[i].className += " activeButton";
+            }
         });
     }
 
@@ -73,7 +92,7 @@ whenDocumentLoaded(() => {
             if (!cantonSelected) {
                 d3.selectAll(".canton")
                     .style("stroke-width", d => d.id == cantonOver ? 3 : 0.5)
-                    .style("fill", d => d.id == cantonOver ? "#F95151" : cholorpleth.color_scale(d.properties.density));
+                    .style("fill", d => d.id == cantonOver ? "#F95151" : cholorpleth.color_scale(d.properties.beds));
                 d3.selectAll("circle")
                     .style("fill-opacity", d => d.id == cantonOver ? 1 : 0.5)
                     .style("stroke-width", d => d.id == cantonOver ? 1 : 0)
@@ -87,7 +106,7 @@ whenDocumentLoaded(() => {
             if (!cantonSelected) {
                 d3.selectAll(".canton")
                     .style("stroke-width", 0.5)
-                    .style("fill", d => cholorpleth.color_scale(d.properties.density))
+                    .style("fill", d => cholorpleth.color_scale(d.properties.beds))
                 d3.selectAll("circle")
                     .style("fill-opacity", 1)
                     .style("stroke-width", 1)

@@ -20,18 +20,41 @@ class SwissMap {
         const path = d3.geoPath()
             .projection(projection);
 
-        // Color Scale
-        var lightGrey = "hsl(0, 0%, 90%)"
-        var darkGrey = "hsl(0, 0%, 40%)"
-        this.color_scale = d3.scaleLog()
-            .range([lightGrey, darkGrey])
-            .interpolate(d3.interpolateHcl)
-            .domain([d3.min(map_data, d => d.properties.density), d3.max(map_data, d => d.properties.density)]);
-
         // Create container
         this.map_container = this.svg.append('g');
         this.label_container = this.svg.append('g');
         this.info_container = this.svg.append('g');
+
+
+        // Cholorpleth
+        var lightGrey = "hsl(0, 0%, 90%)"
+        var darkGrey = "hsl(0, 0%, 20%)"
+        this.color_scale = d3.scaleLog()
+            .range([lightGrey, darkGrey])
+            .interpolate(d3.interpolateHcl)
+            .domain([d3.min(map_data, d => d.properties.beds), d3.max(map_data, d => d.properties.beds)]);
+
+        function cholorplethBeds() {
+            this.color_scale = d3.scaleLog()
+                .range([lightGrey, darkGrey])
+                .interpolate(d3.interpolateHcl)
+                .domain([d3.min(map_data, d => d.properties.beds), d3.max(map_data, d => d.properties.beds)]);
+            d3.selectAll(".canton")
+                .transition()
+                .duration(500)
+                .style("fill", (d) => this.color_scale(d.properties.beds));
+        }
+
+        function cholorplethDoctors() {
+            this.color_scale = d3.scaleLog()
+                .range([lightGrey, darkGrey])
+                .interpolate(d3.interpolateHcl)
+                .domain([d3.min(map_data, d => d.properties.doctors), d3.max(map_data, d => d.properties.doctors)]);
+            d3.selectAll(".canton")
+                .transition()
+                .duration(500)
+                .style("fill", (d) => this.color_scale(d.properties.doctors));
+        }
 
         // Draw the canton region
         this.map_container.selectAll(".canton")
@@ -40,7 +63,7 @@ class SwissMap {
             .append("path")
             .classed("canton", true)
             .attr("d", path)
-            .style("fill", (d) => this.color_scale(d.properties.density));
+            .style("fill", (d) => this.color_scale(d.properties.beds));
 
         // Draw the canton labels
         this.label_container.selectAll(".label")
@@ -51,23 +74,12 @@ class SwissMap {
             .attr("transform", d => "translate(" + path.centroid(d) + ")")
             .text(d => d.id);
 
-        // Change Cholorpleth
-        d3.selectAll("#bedTab")
-            .on("click", bedsCholorpleth)
+        // Interaction
+        d3.selectAll(".physicalResourcesButton")
+            .on("click", cholorplethBeds)
 
-        d3.selectAll("#densityTab")
-            .on("click", densityCholorpleth)
+        d3.selectAll(".humanResourcesButton")
+            .on("click", cholorplethDoctors)
 
-        function bedsCholorpleth() {
-            color_scale.domain([d3.min(map_data, d => d.properties.beds), d3.max(map_data, d => d.properties.beds)]);
-            d3.selectAll(".canton")
-                .style("fill", (d) => this.color_scale(d.properties.beds));
-        }
-
-        function densityCholorpleth() {
-            color_scale.domain([d3.min(map_data, d => d.properties.density), d3.max(map_data, d => d.properties.density)]);
-            d3.selectAll(".canton")
-                .style("fill", (d) => this.color_scale(d.properties.density));
-        }
     }
 }
