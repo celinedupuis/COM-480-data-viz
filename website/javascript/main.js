@@ -7,6 +7,17 @@ function whenDocumentLoaded(action) {
 }
 
 whenDocumentLoaded(() => {
+
+    // Nav
+    var btns = document.getElementsByClassName("btn");
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function() {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+        });
+    }
+
     // Data CSV
     const indicators_promise = d3.csv("../data/swiss_indicators_2020.csv").then((data) => {
         let population = {};
@@ -59,16 +70,17 @@ whenDocumentLoaded(() => {
 
         function mouseover(d) {
             let cantonOver = d.id;
-            d3.selectAll(".canton")
-                .style("stroke-width", d => d.id == cantonOver ? 3 : 0.5)
-                .style("fill", d => d.id == cantonOver ? "#F95151" : cholorpleth.color_scale(d.properties.density));
-            d3.selectAll("circle")
-                .style("fill-opacity", d => d.id == cantonOver ? 1 : 0.5)
-                .style("stroke-width", d => d.id == cantonOver ? 1 : 0)
-            d3.selectAll(".label-bubble")
-                .text(d => d.id == cantonOver ? d.properties.name : "")
-                .style("font-size", d => d.id == cantonOver ? 40 : 14)
-            updateIndicators(cantonOver);
+            if (!cantonSelected) {
+                d3.selectAll(".canton")
+                    .style("stroke-width", d => d.id == cantonOver ? 3 : 0.5)
+                    .style("fill", d => d.id == cantonOver ? "#F95151" : cholorpleth.color_scale(d.properties.density));
+                d3.selectAll("circle")
+                    .style("fill-opacity", d => d.id == cantonOver ? 1 : 0.5)
+                    .style("stroke-width", d => d.id == cantonOver ? 1 : 0)
+                d3.selectAll(".label-bubble")
+                    .text(d => d.id == cantonOver ? d.properties.name : "")
+                updateIndicators(cantonOver);
+            }
         }
 
         function mouseout(d) {
@@ -94,7 +106,6 @@ whenDocumentLoaded(() => {
                 d3.selectAll(".canton")
                     .style("stroke-width", d => d.id == cantonSelectedID ? 3 : 0.5)
                     .style("fill", d => d.id == cantonSelectedID ? "#F95151" : cholorpleth.color_scale(d.properties.density));
-                scrollBy(0, svg_viewbox.height / 2);
                 d3.selectAll("circle")
                     .style("fill-opacity", d => d.id == cantonSelectedID ? 1 : 0.5)
                     .style("stroke-width", d => d.id == cantonSelectedID ? 1 : 0)

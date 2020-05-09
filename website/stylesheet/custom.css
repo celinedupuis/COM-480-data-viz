@@ -20,7 +20,7 @@ h3 {
     font-variant: normal;
     font-weight: 700;
     line-height: 15.4px;
-    padding-top: 40px;
+    padding-top: 45px;
 }
 
 p {
@@ -99,6 +99,20 @@ a:hover {
     display: inline-block;
 }
 
+.btn {
+    border: none;
+    outline: none;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.active,
+.btn:hover {
+    color: white;
+    font-style: bold;
+}
+
 header {
     background-color: #000000;
     opacity: 1.0;
@@ -131,7 +145,6 @@ footer {
 
 .sectionIcons {
     padding-top: 64px;
-    height: 30vh;
     margin-left: auto;
     margin-right: auto;
     max-width: 900px;
