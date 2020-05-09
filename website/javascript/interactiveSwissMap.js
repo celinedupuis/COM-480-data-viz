@@ -34,28 +34,6 @@ class SwissMap {
             .interpolate(d3.interpolateHcl)
             .domain([d3.min(map_data, d => d.properties.beds), d3.max(map_data, d => d.properties.beds)]);
 
-        function cholorplethBeds() {
-            this.color_scale = d3.scaleLog()
-                .range([lightGrey, darkGrey])
-                .interpolate(d3.interpolateHcl)
-                .domain([d3.min(map_data, d => d.properties.beds), d3.max(map_data, d => d.properties.beds)]);
-            d3.selectAll(".canton")
-                .transition()
-                .duration(500)
-                .style("fill", (d) => this.color_scale(d.properties.beds));
-        }
-
-        function cholorplethDoctors() {
-            this.color_scale = d3.scaleLog()
-                .range([lightGrey, darkGrey])
-                .interpolate(d3.interpolateHcl)
-                .domain([d3.min(map_data, d => d.properties.doctors), d3.max(map_data, d => d.properties.doctors)]);
-            d3.selectAll(".canton")
-                .transition()
-                .duration(500)
-                .style("fill", (d) => this.color_scale(d.properties.doctors));
-        }
-
         // Draw the canton region
         this.map_container.selectAll(".canton")
             .data(map_data)
@@ -73,13 +51,5 @@ class SwissMap {
             .classed("label", true)
             .attr("transform", d => "translate(" + path.centroid(d) + ")")
             .text(d => d.id);
-
-        // Interaction
-        d3.selectAll(".physicalResourcesButton")
-            .on("click", cholorplethBeds)
-
-        d3.selectAll(".humanResourcesButton")
-            .on("click", cholorplethDoctors)
-
     }
 }

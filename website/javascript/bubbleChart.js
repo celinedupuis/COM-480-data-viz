@@ -16,11 +16,11 @@ class BubbleChart {
 
         // Scale to svg coordinate
         const x_range = [0, d3.max(map_data, d => d.properties.density)];
-        const y_range = [0, d3.max(map_data, d => d.properties.beds)];
         const x_scale = d3.scaleLinear()
             .domain(x_range)
             .range([0, this.chart_width]);
-        const y_scale = d3.scaleLinear()
+        let y_range = [0, d3.max(map_data, d => d.properties.beds)];
+        let y_scale = d3.scaleLinear()
             .domain(y_range)
             .range([this.chart_height, 0]);
 
@@ -31,7 +31,7 @@ class BubbleChart {
             .call(x_axis)
             .attr("transform", "translate(0," + this.chart_height * 1.5 + ")")
 
-        const y_axis = d3.axisLeft()
+        let y_axis = d3.axisLeft()
             .scale(y_scale);
         this.svg.append("g")
             .call(y_axis)
