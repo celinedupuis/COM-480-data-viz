@@ -115,19 +115,20 @@ footer {
     border: 1px solid #F95151;
 }
 
+.label-canton,
+.label-bubble {
+    fill-opacity: 1;
+    fill: rgb(255, 255, 255);
+    font-size: 14px;
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
 
 /* MAP */
 
 .canton {
     stroke-width: 0.5px;
     stroke: rgb(255, 255, 255);
-}
-
-.label {
-    fill-opacity: 1;
-    fill: rgb(255, 255, 255);
-    font-size: 14px;
-    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 
 
@@ -156,13 +157,6 @@ circle {
     fill: #F95151;
 }
 
-.label-bubble {
-    fill-opacity: 1;
-    fill: rgb(255, 255, 255);
-    font-size: 12px;
-    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-}
-
 
 /* BIPARTITE */
 
@@ -187,5 +181,12 @@ circle {
     fill-opacity: 0.6;
     fill: rgb(255, 255, 255);
     font-size: 10px;
+    font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+}
+
+.label {
+    fill-opacity: 1;
+    fill: rgb(255, 255, 255);
+    font-size: 14px;
     font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }

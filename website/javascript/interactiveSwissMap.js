@@ -17,7 +17,7 @@ class SwissMap {
             .precision(.1);
 
         // Path (JSON to SVG path)
-        const path = d3.geoPath()
+        this.path = d3.geoPath()
             .projection(projection);
 
         // Create container
@@ -40,16 +40,16 @@ class SwissMap {
             .enter()
             .append("path")
             .classed("canton", true)
-            .attr("d", path)
+            .attr("d", this.path)
             .style("fill", (d) => this.color_scale(d.properties.beds));
 
         // Draw the canton labels
-        this.label_container.selectAll(".label")
+        this.label_container.selectAll(".label-canton")
             .data(map_data)
             .enter()
             .append("text")
-            .classed("label", true)
-            .attr("transform", d => "translate(" + path.centroid(d) + ")")
+            .classed("label-canton", true)
+            .attr("transform", d => "translate(" + this.path.centroid(d) + ")")
             .text(d => d.id);
     }
 }

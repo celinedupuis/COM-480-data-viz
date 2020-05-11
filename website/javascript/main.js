@@ -71,12 +71,11 @@ whenDocumentLoaded(() => {
         });
 
         // Create Data Viz
-        cholorpleth = new SwissMap(map_data, 'interactiveSwissMap');
+        cholorpleth = new SwissMap(map_data, 'cholorpleth');
         bubble_chart = new BubbleChart(map_data, 'bubbleChart');;
 
         // Colors
         const lightGrey = "hsl(0, 0%, 90%)"
-        const middleGrey = "hsl(0, 0%, 40%)"
         const darkGrey = "hsl(0, 0%, 20%)"
         const red = "#F95151"
         const white = "#ffffff"
@@ -91,9 +90,11 @@ whenDocumentLoaded(() => {
             .domain([d3.min(map_data, d => d.properties.doctors), d3.max(map_data, d => d.properties.doctors)]);
 
         // Common Interaction
-        let cantonSelected = false;
+        let isCantonSelected = false;
         let cantonSelectedID = "";
-        let physicalResourceMode = true;
+        let x;
+        let y;
+
         d3.selectAll(".canton")
             .on("mouseover", mouseover)
             .on("mouseout", mouseout)
@@ -104,19 +105,30 @@ whenDocumentLoaded(() => {
             .on("mouseout", mouseout)
             .on("click", click)
 
+        d3.selectAll(".label-bubble")
+            .on("mouseover", mouseover)
+            .on("mouseout", mouseout)
+            .on("click", click)
+
+        d3.selectAll(".label-canton")
+            .on("mouseover", mouseover)
+            .on("mouseout", mouseout)
+            .on("click", click)
+
         d3.selectAll(".physicalResourcesButton")
             .on("click", modePhysicalResource)
 
         d3.selectAll(".humanResourcesButton")
             .on("click", modeHumanResource)
 
+        // Functions
         function modePhysicalResource() {
-            physicalResourceMode = true;
             //cholorpleth
             d3.selectAll(".canton")
                 .transition()
                 .duration(500)
                 .style("fill", (d) => color_scale_beds(d.properties.beds));
+
             //bubble chart
             y_range = [0, d3.max(map_data, d => d.properties.beds)];
             y_scale = d3.scaleLinear()
@@ -125,21 +137,23 @@ whenDocumentLoaded(() => {
             d3.selectAll("circle")
                 .transition()
                 .duration(500)
-                .attr("cy", d => y_scale(d.properties.beds))
+                .attr("cy", d => y_scale(d.properties.beds));
+
+            // label
             d3.selectAll(".label-bubble")
                 .transition()
                 .duration(500)
-                .attr('y', d => y_scale(d.properties.beds) - 15)
+                .attr('y', d => y_scale(d.properties.beds) - 22)
         }
 
         function modeHumanResource() {
-            physicalResourceMode = false;
-            //cholorpleth
+            // cholorpleth
             d3.selectAll(".canton")
                 .transition()
                 .duration(500)
                 .style("fill", (d) => color_scale_doctors(d.properties.doctors));
-            //bubble chart
+
+            // bubble chart
             y_range = [0, d3.max(map_data, d => d.properties.doctors)];
             y_scale = d3.scaleLinear()
                 .domain(y_range)
@@ -147,61 +161,95 @@ whenDocumentLoaded(() => {
             d3.selectAll("circle")
                 .transition()
                 .duration(500)
-                .attr("cy", d => y_scale(d.properties.doctors))
+                .attr("cy", d => y_scale(d.properties.doctors));
+
+            // label
             d3.selectAll(".label-bubble")
                 .transition()
                 .duration(500)
-                .attr('y', d => y_scale(d.properties.doctors) - 15)
+                .attr('y', d => y_scale(d.properties.doctors) - 22)
         }
 
         function mouseover(d) {
-            let cantonOver = d.id;
-            if (!cantonSelected) {
+            let overID = d.id;
+            if (!isCantonSelected) {
                 // cholorpleth
                 d3.selectAll(".canton")
-                    .style("stroke-width", d => d.id == cantonOver ? 3 : 0.5)
-                    .style("stroke", d => d.id == cantonOver ? red : white);
-                updateIndicators(cantonOver);
+                    .style("fill-opacity", d => d.id == overID ? 1 : 0.2)
+                    .style("stroke-width", d => d.id == overID ? 1 : 0.2)
+                    .style("stroke", d => d.id == overID ? red : white);
+
+                // icons
+                updateIndicators(overID);
 
                 // bubble chart
                 d3.selectAll("circle")
-                    .style("fill-opacity", d => d.id == cantonOver ? 1 : 0.5)
-                    .style("stroke-width", d => d.id == cantonOver ? 1 : 0);
+                    .style("fill-opacity", d => d.id == overID ? 1 : 0.3)
+                    .style("stroke-width", d => d.id == overID ? 1 : 0);
+
+                // label
+                d3.selectAll(".label-canton")
+                    .text(d => d.id == overID ? d.properties.name : "")
+                    .style("font-size", d => d.id == overID ? 20 : 14);
+
                 d3.selectAll(".label-bubble")
-                    .text(d => d.id == cantonOver ? d.properties.name : "");
+                    .text(d => d.id == overID ? d.properties.name : "")
+                    .style("font-size", d => d.id == overID ? 20 : 14);
             }
         }
 
         function mouseout(d) {
-            if (!cantonSelected) {
+            if (!isCantonSelected) {
                 // cholorpleth
                 d3.selectAll(".canton")
+                    .style("fill-opacity", 1)
                     .style("stroke-width", 0.5)
                     .style("stroke", white);
+
+                // icons
+                defaultIndicators();
+
                 // bubble chart
                 d3.selectAll("circle")
                     .style("fill-opacity", 1)
-                    .style("stroke-width", 1)
+                    .style("stroke-width", 1);
+
+                // label
+                d3.selectAll(".label-canton")
+                    .text(d => d.id)
+                    .style("font-size", 14)
                 d3.selectAll(".label-bubble")
                     .text(d => d.id)
-                defaultIndicators();
+                    .style("font-size", 14);
             }
         }
 
         function click(d) {
-            cantonSelected = cantonSelectedID == d.id ? !cantonSelected : true;
+            isCantonSelected = cantonSelectedID == d.id ? !isCantonSelected : true;
             cantonSelectedID = d.id;
-            if (cantonSelected) {
+            if (isCantonSelected) {
                 // cholorpleth
                 d3.selectAll(".canton")
-                    .style("stroke-width", d => d.id == cantonSelectedID ? 5 : 0.5)
+                    .style("fill-opacity", d => d.id == cantonSelectedID ? 1 : 0.2)
+                    .style("stroke-width", d => d.id == cantonSelectedID ? 5 : 0.2)
+                    .style("stroke", d => d.id == cantonSelectedID ? red : white);
+
+                // icons
                 updateIndicators(cantonSelectedID);
+
                 // bubble chart
                 d3.selectAll("circle")
-                    .style("fill-opacity", d => d.id == cantonSelectedID ? 1 : 0.5)
-                    .style("stroke-width", d => d.id == cantonSelectedID ? 1 : 0)
+                    .style("fill-opacity", d => d.id == cantonSelectedID ? 1 : 0.3)
+                    .style("stroke-width", d => d.id == cantonSelectedID ? 5 : 0)
+
+                // label
+                d3.selectAll(".label-canton")
+                    .text(d => d.id == cantonSelectedID ? d.properties.name : "")
+                    .style("font-size", d => d.id == cantonSelectedID ? 20 : 14)
                 d3.selectAll(".label-bubble")
                     .text(d => d.id == cantonSelectedID ? d.properties.name : "")
+                    .style("font-size", d => d.id == cantonSelectedID ? 20 : 14);
+
             } else {
                 mouseout(d);
             }
