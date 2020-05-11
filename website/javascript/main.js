@@ -90,15 +90,10 @@ whenDocumentLoaded(() => {
             .domain([d3.min(map_data, d => d.properties.doctors), d3.max(map_data, d => d.properties.doctors)]);
 
         // Interaction
-        let isCantonSelected = false;
-        let cantonSelectedID = "";
-        let isPhysicalResourcesMode = true;
-        let isSameRadius = false;
-
         d3.selectAll(".canton")
             .on("mouseover", mouseover)
             .on("mouseout", mouseout)
-            .on("click", click);
+            .on("click", click)
 
         d3.selectAll("circle")
             .on("mouseover", mouseover)
@@ -124,6 +119,11 @@ whenDocumentLoaded(() => {
         d3.selectAll(".bubbleRatio")
             .on("click", setBubblesRadius)
 
+        // Main variables
+        let isCantonSelected = false;
+        let cantonSelectedID = "";
+        let isPhysicalResourcesMode = true;
+        let isSameRadius = false;
 
         // Functions
         function setBubblesRadius() {
@@ -131,17 +131,11 @@ whenDocumentLoaded(() => {
             d3.selectAll("circle")
                 .transition()
                 .duration(500)
-                .attr("r", isSameRadius ? 10 : d => d.properties.gdpPerCapita);
+                .attr("r", isSameRadius ? 15 : d => d.properties.gdpPerCapita);
         }
 
         function changeMode() {
             isPhysicalResourcesMode = !isPhysicalResourcesMode;
-
-            //cholorpleth
-            d3.selectAll(".canton")
-                .transition()
-                .duration(500)
-                .style("fill", d => isPhysicalResourcesMode ? color_scale_beds(d.properties.beds) : color_scale_doctors(d.properties.doctors));
 
             //bubble chart
             bubble_chart.y_range = [0, d3.max(map_data, d => isPhysicalResourcesMode ? d.properties.beds : d.properties.doctors)];
@@ -188,7 +182,7 @@ whenDocumentLoaded(() => {
 
             // bubble chart
             d3.selectAll("circle")
-                .style("fill-opacity", d => d.id == overID ? 1 : 0.3)
+                .style("fill-opacity", d => d.id == overID ? 1 : 0.5)
                 .style("stroke-width", d => d.id == overID ? 1 : 0);
 
             // label
@@ -234,10 +228,11 @@ whenDocumentLoaded(() => {
                 overlayCanton(d);
                 // cholorpleth
                 d3.selectAll(".canton")
-                    .style("stroke-width", d => d.id == cantonSelectedID ? 5 : 0.2);
+                    .style("fill-opacity", 1)
+                    .style("stroke-width", d => d.id == cantonSelectedID ? 5 : 0.5);
                 // bubble chart
                 d3.selectAll("circle")
-                    .style("stroke-width", d => d.id == cantonSelectedID ? 5 : 0)
+                    .style("stroke-width", d => d.id == cantonSelectedID ? 5 : 0);
 
             } else {
                 mouseout(d);
@@ -248,13 +243,15 @@ whenDocumentLoaded(() => {
             let name = map_data.filter(canton => canton.id == currentCanton)[0].properties.name;
             let demographic = map_data.filter(canton => canton.id == currentCanton)[0].properties.density;
             let beds = map_data.filter(canton => canton.id == currentCanton)[0].properties.beds;
-            let doctors = map_data.filter(canton => canton.id == currentCanton)[0].properties.doctors / 100;
+            let doctors = map_data.filter(canton => canton.id == currentCanton)[0].properties.doctors;
 
-            demographic = Number(demographic).toFixed(0).toString() + "'000 <br> inhabitants";
             if (demographic > 1000) {
                 demographic = Number(demographic).toFixed(0).toString()[0] + "'" + Number(demographic).toFixed(0).toString().substr(1, 3) + "'000 <br>inhabitants";
+            } else {
+                demographic = Number(demographic).toFixed(0).toString() + "'000 <br> inhabitants";
             }
-            beds = Number(beds).toFixed(1).toString() + " beds <br> for 1000 inhabitants";
+
+            beds = Number(beds).toFixed(1).toString() + " hospital beds <br> for 1000 inhabitants";
             doctors = Number(doctors).toFixed(1).toString() + " doctors <br> for 1000 inhabitants";
 
             document.getElementById("indicator-name").innerHTML = name;
@@ -266,8 +263,8 @@ whenDocumentLoaded(() => {
         function defaultIndicators() {
             document.getElementById("indicator-name").innerHTML = "Switzerland";
             document.getElementById("indicator-demographic").innerHTML = "8’544’527 <br> inhabitants";
-            document.getElementById("indicator-beds").innerHTML = "2.26 doctors <br> for 1000 inhabitants";
-            document.getElementById("indicator-doctors").innerHTML = "4.4 beds <br> for 1000 inhabitants";
+            document.getElementById("indicator-beds").innerHTML = "4.4 hospital beds <br> for 1000 inhabitants";
+            document.getElementById("indicator-doctors").innerHTML = "2.26 doctors <br> for 1000 inhabitants";
         }
     });
 });

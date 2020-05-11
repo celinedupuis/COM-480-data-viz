@@ -12,70 +12,71 @@
 
 <body class="w3-black">
     <header class="w3-top w3-center w3-padding-8">
-        <h1>Resources in the healthcare system in Switzerland</h1>
+        <h1>Healthcare Resources in Switzerland</h1>
         <div>
-            <a class="btn active" href="#section1">Cholorpleth</a>
-            <a class="btn" href="#section2">Icons</a>
-            <a class="btn" href="#section3">Bubble Chart</a>
-            <a class="btn" href="#section4">Bipartite</a>
+            <a class="btn active" href="#section1">Map</a>
+            <a class="btn" href="#section2">Correlation</a>
+            <a class="btn" href="#section3">Bipartite</a>
+            <a class="btn" href="#section4">Source</a>
         </div>
     </header>
 
     <!-- Main Content -->
     <div class="w3-animate-zoom w3-center ">
-        <!-- Section 1: Interactive Map -->
-        <div class="sectionPanel" id="section1">
-            <svg id="cholorpleth" width="1024px " height="600px " viewBox="0 0 1024 768"></svg>
-            <div class="physicalResourcesButton activeButton" id="physicalResources">Physical Resources</div>
-            <div class="humanResourcesButton" id="humanResources">Human Resources</div>
+
+        <!-- Intro -->
+        <div>
+            <p class="sectionText" style="padding-top: 130px;">What a time to be alive. The time of a worldwide pandemic. In the context of COVID-19, physical and human resources in the healthcare system are at the center of the crisis. The soft lockdown in Switzerland specifically aimed to slow down
+                the propagation of the virus and avoid an overwhelming situation in hospitals and clinics. There has been a tremendous effort to bring new beds in acute units, and medicine students as well as retired health practionners have been requisionned
+                to help on different services.
+                <br> <br> Whereas the current (2020 May 5th) numbers on the human and physical resources are unknown (or not open), we can find historical data and datasets from earlier this year (you know, when we were still hugging our loved ones and
+                free to take a train without a mask). Below, the interactive <a href="#section1">map</a> allows to visualize the number of hospital beds and doctors per canton. Then, we’ll ask if there is any <a href="#section2">correlation</a> between
+                canton’s wealth and number of resources (and thus, quality of care - if we simplify a bit). Finally, we’ll use a <a href="#section3">bipartite</a> illustration to show that woman practionners might currently be more impacted during the
+                pandemic as they outnumber man practionners in the field of care.
+            </p>
         </div>
 
-        <!-- Section 2: Icons -->
-        <div class="sectionIcons" id="section2">
+        <!-- Section 1: Interactive Map -->
+        <div class="sectionPanel" id="section1">
             <h3 id="indicator-name">Switzerland</h3>
-            <br><br>
+            <div><br></div>
             <div class="w3-third">
                 <img src="img/demographic-icon.svg">
                 <p id="indicator-demographic">8’544’527 <br>inhabitants</p>
             </div>
-            <div class="w3-third ">
+            <div class="w3-third">
+                <img src="img/bed-icon.svg">
+                <p id="indicator-beds">4.4 hospital beds <br>for 1000 inhabitants</p>
+            </div>
+            <div class="w3-third">
                 <img src="img/doctor-icon.svg">
                 <p id="indicator-doctors">2.26 doctors <br>for 1000 inhabitants</p>
             </div>
-            <div class="w3-third">
-                <img src="img/bed-icon.svg">
-                <p id="indicator-beds">4.4 beds <br>for 1000 inhabitants</p>
-            </div>
-            <br><br>
-            <p class="sectionText"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna fringilla pulvinar ullamcorper, metus nulla volutpat felis, in tempus tellus nibh et nulla. Phasellus sagittis euismod molestie. Ut efficitur interdum diam, id ullamcorper
-                justo. In consequat eu augue non varius. Phasellus at nulla sollicitudin, accumsan orci sit amet, auctor tortor. Sed dapibus in arcu at sodales. Morbi rhoncus commodo nisl. Nam consequat ut nisl at fringilla. Nulla volutpat vitae metus
-                quis molestie. <br><br>
-            </p>
+            <svg id="cholorpleth" width="1024px " height="600px " viewBox="0 0 1024 768"></svg>
         </div>
 
-        <!-- Section 3: Bubble Chart -->
-        <div class="sectionPanel" id="section3">
-            <h3> Does the number of resources vary with the growth domestic product per capita ? </h3>
-            <p class="sectionText"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, urna fringilla pulvinar ullamcorper, metus nulla volutpat felis, in tempus tellus nibh et nulla. Phasellus sagittis euismod molestie. Ut efficitur interdum diam, id ullamcorper
-                justo. In consequat eu augue non varius. Phasellus at nulla sollicitudin, accumsan orci sit amet, auctor tortor. Sed dapibus in arcu at sodales. Morbi rhoncus commodo nisl. Nam consequat ut nisl at fringilla. Nulla volutpat vitae metus
-                quis molestie.
-                <div class="bubbleRatio">bubble ratio</div>
-            </p>
-            <svg id="bubbleChart" width="1024px " height="400px " viewBox="0 0 1024 500"></svg>
+        <!-- Section 2: Bubble Chart -->
+        <div class="sectionPanel" id="section2">
+            <h3> Does the number of resources per cantons vary with the growth domestic product per capita ?</h3>
+            <svg id="bubbleChart" width="1024px " height="600px " viewBox="0 0 1024 768"></svg>
             <div class="physicalResourcesButton activeButton" id="physicalResources">Physical Resources</div>
             <div class="humanResourcesButton" id="humanResources">Human Resources</div>
+            <p class="bubbleRatio"><br> bubble radius<br> </p>
         </div>
 
-        <!-- Section 4: Bipartite Graph -->
-        <div class="sectionPanel" id="section4">
-            <h3> Unbalanced Gender Ratio</h3>
+        <!-- Section 3: Bipartite Graph -->
+        <div class="sectionPanel" id="section3">
+            <h3> What is the gender repartition in healthcare practionners ? </h3>
             <p class="sectionText"> Between 1985 and 2005, 81% of women for only 19% of men obtained a diploma in healthcare. What is even more striking is the gender gap between high-paying jobs and less-paying jobs. Indeed, over ten years, 93% of woman studied to become caregivers,
                 nurses and midwives, whereas only 38% received a diploma to become a dentist or a doctor. As salary equity is often used as an argument to show gender equality in an industry, the access to high-paying jobs should also be given for the
                 sake of transparency; it still remains more difficult for women to access top-management postions and "prestigious " occupations. The following interactive dataviz entitles to show this disparity in healthcare.
             </p>
-            <svg id="bipartite" width="1024px" height="670px" viewBox="0 0 1024 768"></svg>
-            <!--p class="footnote "> What is also very interesting in this dataset is that all the categories contains two columns for male and female, except for the midwives. Is it really true that no man were practionners in this field before 2005 or it is just because the
-                name of the function is gender-biased?</p-->
+            <svg id="bipartite" width="1024px" height="600px" viewBox="0 0 1024 768"></svg>
+        </div>
+
+        <!-- Section 4: Source -->
+        <div class="sectionPanel" id="section4">
+            <h3> Source</h3>
         </div>
     </div>
     <!-- Load Scripts -->

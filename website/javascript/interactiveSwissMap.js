@@ -22,8 +22,6 @@ class SwissMap {
 
         // Create container
         this.map_container = this.svg.append('g');
-        this.label_container = this.svg.append('g');
-        this.info_container = this.svg.append('g');
 
         // Cholorpleth
         var lightGrey = "hsl(0, 0%, 90%)"
@@ -31,7 +29,7 @@ class SwissMap {
         this.color_scale = d3.scaleLog()
             .range([lightGrey, darkGrey])
             .interpolate(d3.interpolateHcl)
-            .domain([d3.min(map_data, d => d.properties.beds), d3.max(map_data, d => d.properties.beds)]);
+            .domain([d3.min(map_data, d => d.properties.density), d3.max(map_data, d => d.properties.density)]);
 
         // Draw the canton region
         this.map_container.selectAll(".canton")
@@ -40,15 +38,22 @@ class SwissMap {
             .append("path")
             .classed("canton", true)
             .attr("d", this.path)
-            .style("fill", (d) => this.color_scale(d.properties.beds));
+            .style("fill", (d) => this.color_scale(d.properties.density));
 
         // Draw the canton labels
-        this.label_container.selectAll(".label-canton")
+        this.map_container.selectAll(".label-canton")
             .data(map_data)
             .enter()
             .append("text")
             .classed("label-canton", true)
             .attr("transform", d => "translate(" + this.path.centroid(d) + ")")
             .text(d => d.id);
+
+        // Draw instruction
+        this.svg.append('g')
+            .append("text")
+            .text("Select a canton on the map")
+            .attr("transform", d => "translate(" + ((this.svg_width / 2) - 80) + "," + (this.svg_height - 50) + ")")
+            .classed("label", true);
     }
 }
