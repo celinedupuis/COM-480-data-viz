@@ -8,7 +8,7 @@ function whenDocumentLoaded(action) {
 
 whenDocumentLoaded(() => {
 
-    // Nav Bar
+    // Menu navigation bar
     const tabBtn = document.getElementsByClassName("btn");
     for (let i = 0; i < tabBtn.length; i++) {
         tabBtn[i].addEventListener("click", function() {
@@ -89,11 +89,11 @@ whenDocumentLoaded(() => {
             .interpolate(d3.interpolateHcl)
             .domain([d3.min(map_data, d => d.properties.doctors), d3.max(map_data, d => d.properties.doctors)]);
 
-        // Common Interaction
+        // Interaction
         let isCantonSelected = false;
         let cantonSelectedID = "";
-        let x;
-        let y;
+        let isPhysicalResourcesMode = true;
+        let isSameRadius = false;
 
         d3.selectAll(".canton")
             .on("mouseover", mouseover)
@@ -121,8 +121,21 @@ whenDocumentLoaded(() => {
         d3.selectAll(".humanResourcesButton")
             .on("click", modeHumanResource)
 
+        d3.selectAll(".bubbleRatio")
+            .on("click", setBubblesRadius)
+
+
+        function setBubblesRadius() {
+            isSameRadius = !isSameRadius;
+            d3.selectAll("circle")
+                .transition()
+                .duration(500)
+                .attr("r", isSameRadius ? 10 : d => d.properties.gdpPerCapita);
+        }
+
         // Functions
         function modePhysicalResource() {
+            isPhysicalResourcesMode = true;
             //cholorpleth
             d3.selectAll(".canton")
                 .transition()
@@ -130,23 +143,33 @@ whenDocumentLoaded(() => {
                 .style("fill", (d) => color_scale_beds(d.properties.beds));
 
             //bubble chart
-            y_range = [0, d3.max(map_data, d => d.properties.beds)];
-            y_scale = d3.scaleLinear()
-                .domain(y_range)
+            bubble_chart.y_range = [0, d3.max(map_data, d => d.properties.beds)];
+            bubble_chart.y_scale = d3.scaleLinear()
+                .domain(bubble_chart.y_range)
                 .range([bubble_chart.chart_height, 0]);
             d3.selectAll("circle")
                 .transition()
                 .duration(500)
-                .attr("cy", d => y_scale(d.properties.beds));
+                .attr("cy", d => bubble_chart.y_scale(d.properties.beds));
+            d3.selectAll('.yaxis-label')
+                .text("Doctors / 1000 inhabitants")
+            bubble_chart.y_axis = d3.axisLeft()
+                .scale(bubble_chart.y_scale);
+            d3.selectAll(".yaxis")
+                .transition()
+                .duration(500)
+                .call(bubble_chart.y_axis)
 
             // label
             d3.selectAll(".label-bubble")
                 .transition()
                 .duration(500)
-                .attr('y', d => y_scale(d.properties.beds) - 22)
+                .attr('y', d => bubble_chart.y_scale(d.properties.beds) - 22)
         }
 
         function modeHumanResource() {
+            isPhysicalResourcesMode = false;
+
             // cholorpleth
             d3.selectAll(".canton")
                 .transition()
@@ -154,20 +177,28 @@ whenDocumentLoaded(() => {
                 .style("fill", (d) => color_scale_doctors(d.properties.doctors));
 
             // bubble chart
-            y_range = [0, d3.max(map_data, d => d.properties.doctors)];
-            y_scale = d3.scaleLinear()
-                .domain(y_range)
+            bubble_chart.y_range = [0, d3.max(map_data, d => d.properties.doctors)];
+            bubble_chart.y_scale = d3.scaleLinear()
+                .domain(bubble_chart.y_range)
                 .range([bubble_chart.chart_height, 0]);
             d3.selectAll("circle")
                 .transition()
                 .duration(500)
-                .attr("cy", d => y_scale(d.properties.doctors));
+                .attr("cy", d => bubble_chart.y_scale(d.properties.doctors));
+            d3.selectAll('.yaxis-label')
+                .text("Doctors / 1000 inhabitants")
+            bubble_chart.y_axis = d3.axisLeft()
+                .scale(bubble_chart.y_scale);
+            d3.selectAll(".yaxis")
+                .transition()
+                .duration(500)
+                .call(bubble_chart.y_axis)
 
             // label
             d3.selectAll(".label-bubble")
                 .transition()
                 .duration(500)
-                .attr('y', d => y_scale(d.properties.doctors) - 22)
+                .attr('y', d => bubble_chart.y_scale(d.properties.doctors) - 22)
         }
 
         function mouseover(d) {

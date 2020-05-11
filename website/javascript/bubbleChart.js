@@ -15,27 +15,39 @@ class BubbleChart {
             .attr("transform", "translate(" + offset / 2 + "," + this.chart_height * 0.5 + ")")
 
         // Scale to svg coordinate
+        // x-axis
         const x_range = [0, d3.max(map_data, d => d.properties.density)];
         const x_scale = d3.scaleLinear()
             .domain(x_range)
             .range([0, this.chart_width]);
-        let y_range = [0, d3.max(map_data, d => d.properties.beds)];
-        let y_scale = d3.scaleLinear()
-            .domain(y_range)
-            .range([this.chart_height, 0]);
-
-        // Create Axis
         const x_axis = d3.axisBottom()
             .scale(x_scale);
         this.svg.append("g")
             .call(x_axis)
             .attr("transform", "translate(0," + this.chart_height * 1.5 + ")")
+        this.svg.append('g')
+            .append('text')
+            .text("Population")
+            .classed("label", true)
+            .attr("transform", "translate(" + this.chart_width / 2 + "," + (this.chart_height * 1.5 + 50) + ")");
 
-        let y_axis = d3.axisLeft()
-            .scale(y_scale);
+        // y-axis
+        this.y_range = [0, d3.max(map_data, d => d.properties.beds)];
+        this.y_scale = d3.scaleLinear()
+            .domain(this.y_range)
+            .range([this.chart_height, 0]);
+        this.y_axis = d3.axisLeft()
+            .scale(this.y_scale);
         this.svg.append("g")
-            .call(y_axis)
-            .attr("transform", "translate(0," + this.chart_height * 0.5 + ")")
+            .call(this.y_axis)
+            .classed("yaxis", true)
+            .attr("transform", "translate(0," + this.chart_height * 0.5 + ")");
+        this.svg.append('g')
+            .append('text')
+            .text("Beds / 1000 inhabitants")
+            .classed("label", true)
+            .classed("yaxis-label", true)
+            .attr("transform", "translate(" + -50 + "," + this.chart_height * 1.3 + ")rotate(-90)");
 
         // Draw the bubbles
         this.chart_container.selectAll("circle")
@@ -44,7 +56,7 @@ class BubbleChart {
             .append("circle")
             .attr("r", d => d.properties.gdpPerCapita)
             .attr("cx", d => x_scale(d.properties.density))
-            .attr("cy", d => y_scale(d.properties.beds))
+            .attr("cy", d => this.y_scale(d.properties.beds))
             .classed('middle', d => d.properties.gdpPerCapita <= d3.mean(map_data, d => d.properties.gdpPerCapita))
             .classed('high', d => d.properties.gdpPerCapita >= d3.mean(map_data, d => d.properties.gdpPerCapita));
 
@@ -56,7 +68,7 @@ class BubbleChart {
             .append('text')
             .text(d => d.id)
             .attr('x', d => x_scale(d.properties.density) + 22)
-            .attr('y', d => y_scale(d.properties.beds) - 22)
+            .attr('y', d => this.y_scale(d.properties.beds) - 22)
             .classed("label-bubble", true);
     }
 }

@@ -25,7 +25,6 @@ class SwissMap {
         this.label_container = this.svg.append('g');
         this.info_container = this.svg.append('g');
 
-
         // Cholorpleth
         var lightGrey = "hsl(0, 0%, 90%)"
         var darkGrey = "hsl(0, 0%, 20%)"
