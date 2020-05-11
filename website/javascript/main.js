@@ -169,31 +169,36 @@ whenDocumentLoaded(() => {
         }
 
         function mouseover(d) {
-            let overID = d.id;
             if (!isCantonSelected) {
-                // cholorpleth
-                d3.selectAll(".canton")
-                    .style("fill-opacity", d => d.id == overID ? 1 : 0.2)
-                    .style("stroke-width", d => d.id == overID ? 1 : 0.2)
-                    .style("stroke", d => d.id == overID ? red : white);
-
-                // icons
-                updateIndicators(overID);
-
-                // bubble chart
-                d3.selectAll("circle")
-                    .style("fill-opacity", d => d.id == overID ? 1 : 0.3)
-                    .style("stroke-width", d => d.id == overID ? 1 : 0);
-
-                // label
-                d3.selectAll(".label-canton")
-                    .text(d => d.id == overID ? d.properties.name : "")
-                    .style("font-size", d => d.id == overID ? 20 : 14);
-
-                d3.selectAll(".label-bubble")
-                    .text(d => d.id == overID ? d.properties.name : "")
-                    .style("font-size", d => d.id == overID ? 20 : 14);
+                overlayCanton(d);
             }
+        }
+
+        function overlayCanton(d) {
+            let overID = d.id;
+
+            // cholorpleth
+            d3.selectAll(".canton")
+                .style("fill-opacity", d => d.id == overID ? 1 : 0.2)
+                .style("stroke-width", d => d.id == overID ? 1 : 0.2)
+                .style("stroke", d => d.id == overID ? red : white);
+
+            // icons
+            updateIndicators(overID);
+
+            // bubble chart
+            d3.selectAll("circle")
+                .style("fill-opacity", d => d.id == overID ? 1 : 0.3)
+                .style("stroke-width", d => d.id == overID ? 1 : 0);
+
+            // label
+            d3.selectAll(".label-canton")
+                .text(d => d.id == overID ? d.properties.name : "")
+                .style("font-size", d => d.id == overID ? 20 : 14);
+
+            d3.selectAll(".label-bubble")
+                .text(d => d.id == overID ? d.properties.name : "")
+                .style("font-size", d => d.id == overID ? 20 : 14);
         }
 
         function mouseout(d) {
@@ -226,27 +231,13 @@ whenDocumentLoaded(() => {
             isCantonSelected = cantonSelectedID == d.id ? !isCantonSelected : true;
             cantonSelectedID = d.id;
             if (isCantonSelected) {
+                overlayCanton(d);
                 // cholorpleth
                 d3.selectAll(".canton")
-                    .style("fill-opacity", d => d.id == cantonSelectedID ? 1 : 0.2)
-                    .style("stroke-width", d => d.id == cantonSelectedID ? 5 : 0.2)
-                    .style("stroke", d => d.id == cantonSelectedID ? red : white);
-
-                // icons
-                updateIndicators(cantonSelectedID);
-
+                    .style("stroke-width", d => d.id == cantonSelectedID ? 5 : 0.2);
                 // bubble chart
                 d3.selectAll("circle")
-                    .style("fill-opacity", d => d.id == cantonSelectedID ? 1 : 0.3)
                     .style("stroke-width", d => d.id == cantonSelectedID ? 5 : 0)
-
-                // label
-                d3.selectAll(".label-canton")
-                    .text(d => d.id == cantonSelectedID ? d.properties.name : "")
-                    .style("font-size", d => d.id == cantonSelectedID ? 20 : 14)
-                d3.selectAll(".label-bubble")
-                    .text(d => d.id == cantonSelectedID ? d.properties.name : "")
-                    .style("font-size", d => d.id == cantonSelectedID ? 20 : 14);
 
             } else {
                 mouseout(d);
