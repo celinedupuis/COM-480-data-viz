@@ -59,9 +59,14 @@
         <div class="sectionPanel" id="section2">
             <h3> Does the number of resources per cantons vary with the growth domestic product per capita ?</h3>
             <svg id="bubbleChart" width="1024px " height="600px " viewBox="0 0 1024 768"></svg>
-            <div class="physicalResourcesButton activeButton" id="physicalResources">Physical Resources</div>
-            <div class="humanResourcesButton" id="humanResources">Human Resources</div>
-            <p class="bubbleRatio"><br> bubble radius<br> </p>
+            <div style="margin-top: -100px;">
+                <div class="bubbleChartButton btnResources activeButton" id="btn-beds"># Beds</div>
+                <div class="bubbleChartButton btnResources" id="btn-doctors"># Doctors</div>
+            </div>
+            <div>
+                <div class="bubbleChartButton btnRadius" id="btn-radius">Uniform radius</div>
+                <div class="bubbleChartButton btnRadius activeButton" id="btn-radius-w">GDP radius</div>
+            </div>
         </div>
 
         <!-- Section 3: Bipartite Graph -->
@@ -84,6 +89,7 @@
     <script src="lib/topojson.min.js"></script>
     <script src="http://vizjs.org/viz.v1.1.0.min.js"></script>
     <script src="javascript/main.js"></script>
+    <script src="javascript/buttons.js"></script>
     <script src="javascript/interactiveSwissMap.js"></script>
     <script src="javascript/bubbleChart.js"></script>
     <script src="javascript/genderBipartite.js"></script>
