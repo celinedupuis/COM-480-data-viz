@@ -1,21 +1,21 @@
 const _data = [
-    ['Homme', 'Médecins', 8845],
-    ['Homme', 'Dentistes', 1450],
-    ['Homme', 'Soins Infirmiers', 5768],
-    ['Homme', 'Aide soignant', 2016],
-    ['Homme', 'Sage-femmes', 0],
+    ['Men', 'Doctors', 8845],
+    ['Men', 'Dentists', 1450],
+    ['Men', 'Nurses', 5768],
+    ['Men', 'Caregivers', 2016],
+    ['Men', 'Midwives', 0],
 
-    ['Femme', 'Médecins', 6499],
-    ['Femme', 'Dentistes', 743],
-    ['Femme', 'Soins Infirmiers', 47506],
-    ['Femme', 'Aide soignant', 21692],
-    ['Femme', 'Sage-femmes', 2000]
+    ['Women', 'Doctors', 6499],
+    ['Women', 'Dentists', 743],
+    ['Women', 'Nurses', 47506],
+    ['Women', 'Caregivers', 21692],
+    ['Women', 'Midwives', 2000]
 ];
 const colorPrimary = {
-    Homme: "#4287f5",
-    Femme: "#F95151",
+    Men: "#4287f5",
+    Women: "#F95151",
 };
-const secondary = ["Aide soignant", "Sage-femmes", "Soins Infirmiers", "Médecins", "Dentistes"];
+const secondary = ["Caregivers", "Midwives", "Nurses", "Doctors", "Dentists"];
 
 function sortSec(a, b, c, d, e) {
     return d3.ascending(secondary.indexOf(a), secondary.indexOf(b), secondary.indexOf(c), secondary.indexOf(d), secondary.indexOf(e));

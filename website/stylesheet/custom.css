@@ -118,7 +118,7 @@
     }
     
     .activeButton {
-        border: 5px solid white;
+        border: 1px solid #F95151;
     }
     
     circle {
