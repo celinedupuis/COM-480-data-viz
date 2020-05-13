@@ -3,7 +3,7 @@ class BubbleChart {
         this.svg = d3.select('#' + svg_element_id);
 
         // Scale to svg coordinate
-        const offset = 0;
+        const offset = 100;
         const svg_viewbox = this.svg.node().viewBox.animVal;
         this.svg_width = svg_viewbox.width;
         this.svg_height = svg_viewbox.height;
@@ -25,12 +25,12 @@ class BubbleChart {
             .scale(x_scale);
         this.svg.append("g")
             .call(x_axis)
-            .attr("transform", "translate(0," + this.chart_height * 1.5 + ")")
+            .attr("transform", "translate(" + offset / 2 + "," + this.chart_height * 1.5 + ")")
         this.svg.append('g')
             .append('text')
-            .text("Population x 1000")
+            .text("Population")
             .classed("label", true)
-            .attr("transform", "translate(" + this.chart_width + "," + (this.chart_height * 1.5 + label_padding) + ")");
+            .attr("transform", "translate(" + (this.chart_width / 2) + "," + (this.chart_height * 1.5 + label_padding) + ")");
 
         // y-axis
         this.y_range = [0, d3.max(map_data, d => d.properties.beds)];
@@ -42,19 +42,7 @@ class BubbleChart {
         this.svg.append("g")
             .call(this.y_axis)
             .classed("yaxis", true)
-            .attr("transform", "translate(0," + this.chart_height * 0.5 + ")");
-        this.svg.append('g')
-            .append('text')
-            .text("# Beds")
-            .classed("label", true)
-            .classed("yaxis-label", true)
-            .style("font-size", 20)
-            .attr("transform", "translate(" + -1.5 * label_padding + "," + (4 * label_padding) + ")rotate(-30)");
-        this.svg.append('g')
-            .append('text')
-            .text("per 1000 inhabitants")
-            .classed("label", true)
-            .attr("transform", "translate(" + -2 * label_padding + "," + (5 * label_padding) + ")rotate(-30)");
+            .attr("transform", "translate(" + offset / 2 + "," + this.chart_height * 0.5 + ")");
 
         this.threshold = d3.mean(map_data, d => d.properties.gdpPerCapita);
 
@@ -78,7 +66,7 @@ class BubbleChart {
             .enter()
             .append('text')
             .text(d => d.id)
-            .attr('x', d => x_scale(d.properties.density) + this.bubble_label_shift)
+            .attr('x', d => x_scale(d.properties.density) - this.bubble_label_shift)
             .attr('y', d => this.y_scale(d.properties.beds) - this.bubble_label_shift)
             .classed("label-bubble", true)
 
@@ -102,7 +90,7 @@ class BubbleChart {
             .append("text")
             .attr("id", "legend-blue")
             .classed("label", true)
-            .text("Below or equal to average GDP")
+            .text("GDP below or equal to average (click)")
             .attr("transform", "translate(" + (legend_blue_w + 1.25 * size_rect) + "," + (legend_blue_h + 0.75 * size_rect) + ")")
 
         this.svg.append('g')
@@ -118,8 +106,20 @@ class BubbleChart {
             .append("text")
             .attr("id", "legend-red")
             .classed("label", true)
-            .text("Above average GDP")
+            .text("GDP above average (click)")
             .attr("transform", "translate(" + (legend_red_w + 1.25 * size_rect) + "," + (legend_red_h + 0.75 * size_rect) + ")")
 
+        this.svg.append('g')
+            .append('text')
+            .text("# Beds")
+            .classed("label", true)
+            .classed("yaxis-label", true)
+            .style("font-size", 20)
+            .attr("transform", "translate(" + (legend_blue_w) + "," + (legend_blue_h - 1.5 * label_padding) + ")");
+        this.svg.append('g')
+            .append('text')
+            .text("per 1000 inhabitants")
+            .classed("label", true)
+            .attr("transform", "translate(" + (legend_blue_w) + "," + (legend_blue_h - label_padding) + ")");
     }
 }

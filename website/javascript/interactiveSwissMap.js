@@ -50,10 +50,11 @@ class SwissMap {
             .text(d => d.id);
 
         // Draw instruction
+        const instruction_padding = 80;
         this.svg.append('g')
             .append("text")
             .text("Select a canton on the map")
-            .attr("transform", d => "translate(" + ((this.svg_width / 2) - 80) + "," + (this.svg_height - 50) + ")")
+            .attr("transform", d => "translate(" + ((this.svg_width / 2) - instruction_padding) + "," + (this.svg_height - instruction_padding / 2) + ")")
             .classed("label", true);
     }
 }

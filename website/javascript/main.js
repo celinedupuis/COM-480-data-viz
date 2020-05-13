@@ -41,7 +41,8 @@ whenDocumentLoaded(() => {
 
         // Create Data Viz
         cholorpleth = new SwissMap(map_data, 'cholorpleth');
-        bubble_chart = new BubbleChart(map_data, 'bubbleChart');;
+        bubble_chart = new BubbleChart(map_data, 'bubbleChart');
+        bipartite = new Bipartite('bipartite');
 
         // Main variables
         let isCantonSelected = false;
@@ -259,8 +260,8 @@ whenDocumentLoaded(() => {
                     .style("stroke-width", d => d.id == cantonSelectedID ? stroke_width_selected : stroke_width_unselected);
                 // bubble chart
                 d3.selectAll(".bubble")
-                    .style("stroke-width", d => d.id == cantonSelectedID ? stroke_width_selected : stroke_width_unselected);
-
+                    .style("stroke-width", d => d.id == cantonSelectedID ? stroke_width_selected : stroke_width_unselected)
+                    .style("fill-opacity", d => d.id == cantonSelectedID ? 1 : 2 * opacity_unselected);
             } else {
                 mouseout(d);
             }
