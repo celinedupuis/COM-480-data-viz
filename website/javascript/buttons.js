@@ -27,12 +27,19 @@ whenDocumentLoaded(() => {
             this.className += " activeButton";
         });
     }
+
     const btnRadius = document.getElementsByClassName("btnRadius");
-    for (let i = 0; i < btnRadius.length; i++) {
-        btnRadius[i].addEventListener("click", function() {
-            let current = document.getElementsByClassName("activeButton");
-            current[1].className = current[1].className.replace(" activeButton", "");
+    let isUniformRadius = false;
+    btnRadius[0].addEventListener("click", function() {
+        isUniformRadius = !isUniformRadius;
+        console.log(isUniformRadius);
+        if (isUniformRadius) {
+            let str = this.className;
+            this.className = str.substr(0, 27);
+            console.log(this.className);
+        } else {
             this.className += " activeButton";
-        });
-    }
+            console.log(this.className);
+        }
+    });
 });

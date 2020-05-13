@@ -133,19 +133,14 @@ whenDocumentLoaded(() => {
                 changeMode(false);
             })
 
-        d3.selectAll("#btn-radius")
-            .on("click", function() {
-                setUniformRadius(true);
-            })
-
         d3.selectAll("#btn-radius-w")
             .on("click", function() {
-                setUniformRadius(false);
+                setUniformRadius();
             })
 
         // Functions
-        function setUniformRadius(uniformRadius) {
-            isUniformRadius = uniformRadius;
+        function setUniformRadius() {
+            isUniformRadius = !isUniformRadius;
             d3.selectAll(".bubble")
                 .transition()
                 .duration(duration_transition)
