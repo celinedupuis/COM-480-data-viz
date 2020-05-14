@@ -42,14 +42,11 @@ whenDocumentLoaded(() => {
     let isUniformRadius = false;
     btnRadius[0].addEventListener("click", function() {
         isUniformRadius = !isUniformRadius;
-        console.log(isUniformRadius);
         if (isUniformRadius) {
             let str = this.className;
             this.className = str.substr(0, 27);
-            console.log(this.className);
         } else {
             this.className += " activeButton";
-            console.log(this.className);
         }
     });
 });

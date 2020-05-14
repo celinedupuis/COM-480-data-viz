@@ -121,6 +121,11 @@
     .btnCholorpleth {
         margin-top: 0px;
     }
+    
+    .sectionIcons {
+        max-width: 600px;
+        margin: 0 auto;
+    }
     /* BUBBLE CHART */
     
     .bubbleChartButton {

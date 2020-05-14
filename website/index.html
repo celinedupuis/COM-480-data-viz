@@ -23,7 +23,6 @@
 
     <!-- Main Content -->
     <div class="w3-animate-zoom w3-center ">
-
         <!-- Intro -->
         <div>
             <p class="sectionText" style="padding-top: 130px;">
@@ -36,24 +35,26 @@
         <!-- Section 1: Interactive Map -->
         <div class="sectionPanel" id="section1">
             <h3 id="indicator-name">Switzerland</h3>
-            <div><br></div>
-            <div class="w3-third">
-                <img class="icon" src="img/demographic-icon.svg">
-                <p id="indicator-demographic">8’544’527 <br>inhabitants</p>
-            </div>
-            <div class="w3-third">
-                <img class="icon" src="img/bed-icon.svg">
-                <p id="indicator-beds">4.4 hospital beds <br>for 1000 inhabitants</p>
-            </div>
-            <div class="w3-third">
-                <img class="icon" src="img/doctor-icon.svg">
-                <p id="indicator-doctors">2.26 doctors <br>for 1000 inhabitants</p>
+            <p> <a>Select a canton on the map</a></p>
+            <div class="sectionIcons">
+                <div class="w3-third">
+                    <img class="icon" src="img/demographic-icon.svg">
+                    <p id="indicator-demographic">8’544’527 <br>inhabitants</p>
+                </div>
+                <div class="w3-third">
+                    <img class="icon" src="img/bed-icon.svg">
+                    <p id="indicator-beds">4.4 hospital beds <br>for 1000 inhabitants</p>
+                </div>
+                <div class="w3-third">
+                    <img class="icon" src="img/doctor-icon.svg">
+                    <p id="indicator-doctors">2.26 doctors <br>for 1000 inhabitants</p>
+                </div>
             </div>
             <svg id="cholorpleth" width="100% " height="80%" viewBox="0 0 1280 720"></svg>
             <div class="btnCholorpleth">
-                <div class="cholorplethButton activeCholorplethButton" id="cholorpleth-population">Population</div>
                 <div class="cholorplethButton" id="cholorpleth-beds"># Beds</div>
                 <div class="cholorplethButton" id="cholorpleth-doctors"># Doctors</div>
+                <div class="cholorplethButton activeCholorplethButton" id="cholorpleth-population">Population</div>
             </div>
         </div>
 
@@ -64,7 +65,7 @@
             <div class="bubbleBtn">
                 <div class="bubbleChartButton btnResources activeButton" id="btn-beds"># Beds</div>
                 <div class="bubbleChartButton btnResources" id="btn-doctors"># Doctors</div>
-                <div class="bubbleChartButton btnRadius activeButton" id="btn-radius-w">GDP radius</div>
+                <div class="bubbleChartButton btnRadius" id="btn-radius-w">GDP radius</div>
             </div>
             <p class="sectionText"> <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque neque lectus, placerat ac lacus non, mollis tristique felis. Vivamus mollis in odio in commodo. Nullam turpis augue, gravida quis rutrum vitae, volutpat non augue.
                 Maecenas egestas imperdiet diam, sed feugiat nisi hendrerit vel. Cras commodo rhoncus dictum. Duis blandit non lacus nec venenatis. Proin tincidunt leo sit amet est auctor malesuada nec non ipsum. Nunc ligula orci, scelerisque et lorem

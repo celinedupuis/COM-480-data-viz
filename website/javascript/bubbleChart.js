@@ -1,5 +1,5 @@
 let isPhysicalResourceMode = true;
-let isBubbleRadiusUniform = false;
+let isBubbleRadiusUniform = true;
 let isSubsetSelected = false;
 let clickOnRed = false;
 
@@ -50,7 +50,7 @@ class BubbleChart {
             .data(map_data)
             .enter()
             .append("circle")
-            .attr("r", d => d.properties.gdpPerCapita)
+            .attr("r", d => bubble_radius)
             .attr("cx", d => x_scale(d.properties.density))
             .attr("cy", d => this.y_scale(d.properties.beds))
             .classed("bubble", true)
