@@ -56,5 +56,61 @@ class SwissMap {
             .text("Select a canton on the map")
             .attr("transform", d => "translate(" + ((this.svg_width / 2) - instruction_padding) + "," + (this.svg_height - instruction_padding / 2) + ")")
             .classed("label", true);
+
+        // Draw legend
+        const legend_max_w = this.svg_width * 4 / 5;
+        const legend_max_h = 200;
+        const legend_min_w = this.svg_width * 4 / 5;
+        const legend_min_h = 230;
+        const size_rect = 20;
+
+        // - max rect
+        this.svg.append('g')
+            .append("rect")
+            .attr("width", size_rect)
+            .attr("height", size_rect)
+            .attr("x", legend_max_w)
+            .attr("y", legend_max_h)
+            .attr("fill", darkGrey);
+
+        // - min rect
+        this.svg.append('g')
+            .append("rect")
+            .attr("width", size_rect)
+            .attr("height", size_rect)
+            .attr("x", legend_min_w)
+            .attr("y", legend_min_h)
+            .attr("fill", lightGrey);
+
+        // - max text
+        this.svg.append('g')
+            .append("text")
+            .text("Max: " + densityToString(d3.max(map_data, d => d.properties.density)))
+            .classed("label", true)
+            .attr("transform", "translate(" + (legend_max_w + 1.25 * size_rect) + "," + (legend_max_h + 0.75 * size_rect) + ")");
+
+        // - min text
+        this.svg.append('g')
+            .append("text")
+            .classed("label", true)
+            .text("Min: " + densityToString(d3.min(map_data, d => d.properties.density)))
+            .attr("transform", "translate(" + (legend_min_w + 1.25 * size_rect) + "," + (legend_min_h + 0.75 * size_rect) + ")");
+
+        // - title
+        this.svg.append('g')
+            .append('text')
+            .text("Population")
+            .classed("label", true)
+            .style("font-size", 20)
+            .attr("transform", "translate(" + legend_max_w + "," + (legend_max_h - size_rect) + ")");
+
+        function densityToString(density) {
+            if (density > 1000) {
+                density = Number(density).toFixed(0).toString()[0] + "'" + Number(density).toFixed(0).toString().substr(1, 3) + "'000 inhabitants";
+            } else {
+                density = Number(density).toFixed(0).toString() + "'000 inhabitants";
+            }
+            return density;
+        }
     }
 }

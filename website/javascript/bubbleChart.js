@@ -90,7 +90,7 @@ class BubbleChart {
             .attr("x", legend_red_w)
             .attr("y", legend_red_h);
 
-        // Legend: GDP below or equal to average
+        // - GDP below or equal to average
         this.svg.append('g')
             .append("text")
             .attr("id", "legend-blue")
@@ -98,7 +98,7 @@ class BubbleChart {
             .text("GDP below or equal to average (click)")
             .attr("transform", "translate(" + (legend_blue_w + 1.25 * size_rect) + "," + (legend_blue_h + 0.75 * size_rect) + ")")
 
-        // Legend: GDP above average
+        // - GDP above average
         this.svg.append('g')
             .append("text")
             .attr("id", "legend-red")
@@ -122,8 +122,8 @@ class BubbleChart {
         // - population
         this.svg.append('g')
             .append('text')
-            .text("Population")
+            .text("Inhabitants in 1000")
             .classed("label", true)
-            .attr("transform", "translate(" + (this.chart_width / 2) + "," + (this.chart_height * 1.5 + label_padding) + ")");
+            .attr("transform", "translate(" + ((this.chart_width / 2) - label_padding * 3 / 4) + "," + (this.chart_height * 1.5 + label_padding) + ")");
     }
 }
