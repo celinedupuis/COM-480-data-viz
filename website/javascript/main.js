@@ -1,3 +1,20 @@
+// Const variables
+const duration_transition = 500;
+const font_size_default = 14;
+const font_size_selected = 20;
+const stroke_width_unselected = 0.2;
+const stroke_width_default = 1;
+const stroke_width_selected = 5;
+const opacity_unselected = 0.3;
+const opacity_default = 1;
+const bubble_radius = 15;
+const red = "#F95151"
+const white = "#FFFFFF"
+
+// Main variables
+let isCantonSelected = false;
+let cantonSelectedID = "";
+
 function whenDocumentLoaded(action) {
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", action);
@@ -46,47 +63,6 @@ whenDocumentLoaded(() => {
         cholorpleth = new SwissMap(map_data, 'cholorpleth');
         bubble_chart = new BubbleChart(map_data, 'bubbleChart');
         bipartite = new Bipartite('bipartite');
-
-        // Style variables
-        const duration_transition = 500;
-        const font_size_default = 14;
-        const font_size_selected = 20;
-        const stroke_width_unselected = 0.2;
-        const stroke_width_default = 1;
-        const stroke_width_selected = 5;
-        const opacity_unselected = 0.3;
-        const opacity_default = 1;
-        const bubble_radius = 15;
-
-        // Main variables
-        let isCantonSelected = false;
-        let cantonSelectedID = "";
-        let isPhysicalResourceMode = true;
-        let isBubbleRadiusUniform = false;
-        let isSubsetSelected = false;
-        let isRedSubsetSelected = false;
-        let isBlueSubsetSelected = false;
-
-        // Colors
-        const lightGrey = "hsl(0, 0%, 90%)"
-        const darkGrey = "hsl(0, 0%, 20%)"
-        const red = "#F95151"
-        const white = "#FFFFFF"
-        const color_scale_beds = d3.scaleLog()
-            .range([lightGrey, darkGrey])
-            .interpolate(d3.interpolateHcl)
-            .domain([d3.min(map_data, d => d.properties.beds), d3.max(map_data, d => d.properties.beds)]);
-
-        const color_scale_doctors = d3.scaleLog()
-            .range([lightGrey, darkGrey])
-            .interpolate(d3.interpolateHcl)
-            .domain([d3.min(map_data, d => d.properties.doctors), d3.max(map_data, d => d.properties.doctors)]);
-
-        const color_scale_density = d3.scaleLog()
-            .range([lightGrey, darkGrey])
-            .interpolate(d3.interpolateHcl)
-            .domain([d3.min(map_data, d => d.properties.population), d3.max(map_data, d => d.properties.population)]);
-
 
         // Interaction Overlay/Click
         d3.selectAll(".canton")
@@ -204,104 +180,5 @@ whenDocumentLoaded(() => {
             document.getElementById("indicator-beds").innerHTML = "4.4 hospital beds <br> for 1000 inhabitants";
             document.getElementById("indicator-doctors").innerHTML = "2.26 doctors <br> for 1000 inhabitants";
         }
-
-        // Interaction Bubble Chart Radius
-        d3.selectAll("#btn-radius-w")
-            .on("click", function() {
-                setUniformRadius();
-            })
-
-        function setUniformRadius() {
-            isBubbleRadiusUniform = !isBubbleRadiusUniform;
-            d3.selectAll(".bubble")
-                .transition()
-                .duration(duration_transition)
-                .attr("r", isBubbleRadiusUniform ? bubble_radius : d => d.properties.gdpPerCapita);
-        }
-
-        // Interaction Bubble Chart Legend
-        d3.selectAll("#legend-red")
-            .on("click", function() {
-                isRedSubsetSelected = !isRedSubsetSelected;
-                isSubsetSelected = isRedSubsetSelected || isBlueSubsetSelected;
-                selectSubsetBubble(true);
-            })
-        d3.selectAll("#legend-blue")
-            .on("click", function() {
-                isBlueSubsetSelected = !isBlueSubsetSelected;
-                isSubsetSelected = isRedSubsetSelected || isBlueSubsetSelected;
-                selectSubsetBubble(false);
-            })
-
-        function selectSubsetBubble(clickOnRed) {
-            if (isSubsetSelected) {
-                d3.selectAll("#legend-red")
-                    .style("font-size", clickOnRed ? font_size_default * 1.25 : font_size_default * 0.5)
-                d3.selectAll("#legend-blue")
-                    .style("font-size", clickOnRed ? font_size_default * 0.5 : font_size_default * 1.25)
-                d3.selectAll(".bubble")
-                    .transition()
-                    .duration(duration_transition / 2)
-                    .style('opacity', clickOnRed ? (d => d.properties.gdpPerCapita > bubble_chart.threshold ? opacity_default : 0) : (d => d.properties.gdpPerCapita <= bubble_chart.threshold ? opacity_default : 0));
-                d3.selectAll(".label-bubble")
-                    .transition()
-                    .duration(duration_transition / 2)
-                    .style('opacity', clickOnRed ? (d => d.properties.gdpPerCapita > bubble_chart.threshold ? opacity_default : 0) : (d => d.properties.gdpPerCapita <= bubble_chart.threshold ? opacity_default : 0));
-            } else {
-                d3.selectAll(".bubble")
-                    .transition()
-                    .duration(duration_transition / 2)
-                    .style('opacity', 1);
-                d3.selectAll(".label-bubble")
-                    .transition()
-                    .duration(duration_transition / 2)
-                    .style('opacity', 1);
-                d3.selectAll("#legend-red")
-                    .style("font-size", font_size_default)
-                d3.selectAll("#legend-blue")
-                    .style("font-size", font_size_default)
-            }
-        }
-
-        // Interaction Bubble Resource Mode
-        d3.selectAll("#btn-beds")
-            .on("click", function() {
-                changeMode(true);
-            });
-
-        d3.selectAll("#btn-doctors")
-            .on("click", function() {
-                changeMode(false);
-            })
-
-        d3.selectAll(".yaxis-label")
-            .on("click", function() {
-                changeMode(!isPhysicalResourceMode);
-            })
-
-        function changeMode(physicalResourceMode) {
-            isPhysicalResourceMode = physicalResourceMode;
-            bubble_chart.y_range = [0, d3.max(map_data, d => isPhysicalResourceMode ? d.properties.beds : d.properties.doctors)];
-            bubble_chart.y_scale = d3.scaleLinear()
-                .domain(bubble_chart.y_range)
-                .range([bubble_chart.chart_height, 0]);
-            d3.selectAll(".bubble")
-                .transition()
-                .duration(duration_transition)
-                .attr("cy", d => isPhysicalResourceMode ? bubble_chart.y_scale(d.properties.beds) : bubble_chart.y_scale(d.properties.doctors));
-            d3.selectAll('.yaxis-label')
-                .text(isPhysicalResourceMode ? "# Beds" : "# Doctors")
-            bubble_chart.y_axis = d3.axisLeft()
-                .scale(bubble_chart.y_scale);
-            d3.selectAll(".yaxis")
-                .transition()
-                .duration(duration_transition)
-                .call(bubble_chart.y_axis)
-            d3.selectAll(".label-bubble")
-                .transition()
-                .duration(duration_transition)
-                .attr('y', d => isPhysicalResourceMode ? bubble_chart.y_scale(d.properties.beds) - bubble_chart.bubble_label_shift : bubble_chart.y_scale(d.properties.doctors) - bubble_chart.bubble_label_shift)
-        }
-
     });
 });

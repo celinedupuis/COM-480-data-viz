@@ -97,6 +97,30 @@
         stroke-width: 0.5px;
         stroke: rgb(255, 255, 255);
     }
+    
+    .cholorplethButton {
+        cursor: pointer;
+        border: 1px solid grey;
+        outline-style: solid;
+        outline-width: 0.3px;
+        display: inline-block;
+        padding: 8px 14px;
+        margin: 10px;
+        font-size: 12px;
+        width: 120px;
+    }
+    
+    .cholorplethButton:hover {
+        outline-width: 3px;
+    }
+    
+    .activeCholorplethButton {
+        border: 1px solid #F95151;
+    }
+    
+    .btnCholorpleth {
+        margin-top: 0px;
+    }
     /* BUBBLE CHART */
     
     .bubbleChartButton {
@@ -197,5 +221,14 @@
         }
         .bubbleBtn {
             margin-top: -20px;
+        }
+        .cholorplethButton {
+            border: 1px solid grey;
+            outline-style: solid;
+            outline-width: 0.3px;
+            padding: 3px 0px;
+            margin: 1px;
+            font-size: 8px;
+            width: 70px;
         }
     }

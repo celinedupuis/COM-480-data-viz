@@ -18,6 +18,16 @@ whenDocumentLoaded(() => {
         });
     }
 
+    // Cholorpleth buttons
+    const btnCholorpleth = document.getElementsByClassName("cholorplethButton");
+    for (let i = 0; i < btnCholorpleth.length; i++) {
+        btnCholorpleth[i].addEventListener("click", function() {
+            let current = document.getElementsByClassName("activeCholorplethButton");
+            current[0].className = current[0].className.replace(" activeCholorplethButton", "");
+            this.className += " activeCholorplethButton";
+        });
+    }
+
     // Bubble chart buttons
     const btnResources = document.getElementsByClassName("btnResources");
     for (let i = 0; i < btnResources.length; i++) {
