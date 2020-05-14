@@ -1,8 +1,7 @@
 let isPhysicalResourceMode = true;
 let isBubbleRadiusUniform = false;
 let isSubsetSelected = false;
-let isRedSubsetSelected = false;
-let isBlueSubsetSelected = false;
+let clickOnRed = false;
 
 class BubbleChart {
     constructor(map_data, svg_element_id) {
@@ -149,45 +148,61 @@ class BubbleChart {
         // Interaction Bubble Chart Legend
         d3.selectAll("#legend-red")
             .on("click", function() {
-                isRedSubsetSelected = !isRedSubsetSelected;
-                isSubsetSelected = isRedSubsetSelected || isBlueSubsetSelected;
-                selectSubsetBubble(true);
+                isSubsetSelected = !isSubsetSelected;
             })
-        d3.selectAll("#legend-blue")
-            .on("click", function() {
-                isBlueSubsetSelected = !isBlueSubsetSelected;
-                isSubsetSelected = isRedSubsetSelected || isBlueSubsetSelected;
-                selectSubsetBubble(false);
+            .on("mouseover", function() {
+                clickOnRed = true;
+                selectSubsetBubble();
+            })
+            .on("mouseout", function() {
+                if (!isSubsetSelected) {
+                    unselectSubsetBubble();
+                }
             })
 
-        function selectSubsetBubble(clickOnRed) {
-            if (isSubsetSelected) {
-                d3.selectAll("#legend-red")
-                    .style("font-size", clickOnRed ? font_size_default * 1.25 : font_size_default * 0.5)
-                d3.selectAll("#legend-blue")
-                    .style("font-size", clickOnRed ? font_size_default * 0.5 : font_size_default * 1.25)
-                d3.selectAll(".bubble")
-                    .transition()
-                    .duration(duration_transition / 2)
-                    .style('opacity', clickOnRed ? (d => d.properties.gdpPerCapita > bubble_chart.threshold ? opacity_default : 0) : (d => d.properties.gdpPerCapita <= bubble_chart.threshold ? opacity_default : 0));
-                d3.selectAll(".label-bubble")
-                    .transition()
-                    .duration(duration_transition / 2)
-                    .style('opacity', clickOnRed ? (d => d.properties.gdpPerCapita > bubble_chart.threshold ? opacity_default : 0) : (d => d.properties.gdpPerCapita <= bubble_chart.threshold ? opacity_default : 0));
-            } else {
-                d3.selectAll(".bubble")
-                    .transition()
-                    .duration(duration_transition / 2)
-                    .style('opacity', 1);
-                d3.selectAll(".label-bubble")
-                    .transition()
-                    .duration(duration_transition / 2)
-                    .style('opacity', 1);
-                d3.selectAll("#legend-red")
-                    .style("font-size", font_size_default)
-                d3.selectAll("#legend-blue")
-                    .style("font-size", font_size_default)
-            }
+        d3.selectAll("#legend-blue")
+            .on("click", function() {
+                isSubsetSelected = !isSubsetSelected;
+            })
+            .on("mouseover", function() {
+                clickOnRed = false;
+                selectSubsetBubble();
+            })
+            .on("mouseout", function() {
+                if (!isSubsetSelected) {
+                    unselectSubsetBubble();
+                }
+            })
+
+
+        function selectSubsetBubble() {
+            d3.selectAll("#legend-red")
+                .style("font-size", clickOnRed ? font_size_default * 1.25 : font_size_default * 0.5)
+            d3.selectAll("#legend-blue")
+                .style("font-size", clickOnRed ? font_size_default * 0.5 : font_size_default * 1.25)
+            d3.selectAll(".bubble")
+                .transition()
+                .duration(duration_transition / 2)
+                .style('opacity', clickOnRed ? (d => d.properties.gdpPerCapita > bubble_chart.threshold ? opacity_default : 0) : (d => d.properties.gdpPerCapita <= bubble_chart.threshold ? opacity_default : 0));
+            d3.selectAll(".label-bubble")
+                .transition()
+                .duration(duration_transition / 2)
+                .style('opacity', clickOnRed ? (d => d.properties.gdpPerCapita > bubble_chart.threshold ? opacity_default : 0) : (d => d.properties.gdpPerCapita <= bubble_chart.threshold ? opacity_default : 0));
+        }
+
+        function unselectSubsetBubble() {
+            d3.selectAll(".bubble")
+                .transition()
+                .duration(duration_transition / 2)
+                .style('opacity', 1);
+            d3.selectAll(".label-bubble")
+                .transition()
+                .duration(duration_transition / 2)
+                .style('opacity', 1);
+            d3.selectAll("#legend-red")
+                .style("font-size", font_size_default)
+            d3.selectAll("#legend-blue")
+                .style("font-size", font_size_default)
         }
 
         // Interaction Bubble Resource Mode
