@@ -25,7 +25,7 @@ function whenDocumentLoaded(action) {
 
 whenDocumentLoaded(() => {
     // Data CSV
-    const indicators_promise = d3.csv("../data/swiss_indicators_2020.csv").then((data) => {
+    const indicators_promise = d3.csv("data/swiss_indicators_2020.csv").then((data) => {
         let population = {};
         let gdpPerCapita = {};
         let gdpPerCapitaRow = {};
@@ -43,7 +43,7 @@ whenDocumentLoaded(() => {
     });
 
     // Data TopoJSON
-    const map_promise = d3.json("../data/ch-cantons.json").then((topojson_raw) => {
+    const map_promise = d3.json("data/ch-cantons.json").then((topojson_raw) => {
         const canton_paths = topojson.feature(topojson_raw, topojson_raw.objects.cantons);
         return canton_paths.features;
     });
