@@ -26,13 +26,7 @@ class BubbleChart {
         this.svg.append("g")
             .call(x_axis)
             .attr("transform", "translate(" + offset / 2 + "," + this.chart_height * 1.5 + ")")
-        this.svg.append('g')
-            .append('text')
-            .text("Population")
-            .classed("label", true)
-            .attr("transform", "translate(" + (this.chart_width / 2) + "," + (this.chart_height * 1.5 + label_padding) + ")");
-
-        // y-axis
+            // y-axis
         this.y_range = [0, d3.max(map_data, d => d.properties.beds)];
         this.y_scale = d3.scaleLinear()
             .domain(this.y_range)
@@ -59,7 +53,7 @@ class BubbleChart {
             .classed('bubble-red', d => d.properties.gdpPerCapita >= this.threshold);
 
         // Draw the labels
-        this.bubble_label_shift = 10;
+        this.bubble_label_shift = 18;
         this.chart_container.append('g')
             .selectAll('text')
             .data(map_data)
@@ -77,6 +71,7 @@ class BubbleChart {
         const legend_red_h = 230;
         const size_rect = 20;
 
+        // - rect blue
         this.svg.append('g')
             .append("rect")
             .attr("id", "legend-blue")
@@ -84,15 +79,8 @@ class BubbleChart {
             .attr("width", size_rect)
             .attr("height", size_rect)
             .attr("x", legend_blue_w)
-            .attr("y", legend_blue_h)
-
-        this.svg.append('g')
-            .append("text")
-            .attr("id", "legend-blue")
-            .classed("label", true)
-            .text("GDP below or equal to average (click)")
-            .attr("transform", "translate(" + (legend_blue_w + 1.25 * size_rect) + "," + (legend_blue_h + 0.75 * size_rect) + ")")
-
+            .attr("y", legend_blue_h);
+        // - rect red
         this.svg.append('g')
             .append("rect")
             .attr("id", "legend-red")
@@ -100,15 +88,25 @@ class BubbleChart {
             .attr("width", size_rect)
             .attr("height", size_rect)
             .attr("x", legend_red_w)
-            .attr("y", legend_red_h)
+            .attr("y", legend_red_h);
 
+        // Legend: GDP below or equal to average
+        this.svg.append('g')
+            .append("text")
+            .attr("id", "legend-blue")
+            .classed("legend-bubble", true)
+            .text("GDP below or equal to average (click)")
+            .attr("transform", "translate(" + (legend_blue_w + 1.25 * size_rect) + "," + (legend_blue_h + 0.75 * size_rect) + ")")
+
+        // Legend: GDP above average
         this.svg.append('g')
             .append("text")
             .attr("id", "legend-red")
-            .classed("label", true)
+            .classed("legend-bubble", true)
             .text("GDP above average (click)")
             .attr("transform", "translate(" + (legend_red_w + 1.25 * size_rect) + "," + (legend_red_h + 0.75 * size_rect) + ")")
 
+        // Draw axis label
         this.svg.append('g')
             .append('text')
             .text("# Beds")
@@ -121,5 +119,11 @@ class BubbleChart {
             .text("per 1000 inhabitants")
             .classed("label", true)
             .attr("transform", "translate(" + (legend_blue_w) + "," + (legend_blue_h - label_padding) + ")");
+        // - population
+        this.svg.append('g')
+            .append('text')
+            .text("Population")
+            .classed("label", true)
+            .attr("transform", "translate(" + (this.chart_width / 2) + "," + (this.chart_height * 1.5 + label_padding) + ")");
     }
 }

@@ -80,7 +80,10 @@
         color: #808080;
         bottom: 0;
     }
+    /* Labels */
     
+    .label,
+    .label-bipartite,
     .label-canton,
     .label-bubble {
         fill-opacity: 1;
@@ -116,6 +119,10 @@
         border: 1px solid #F95151;
     }
     
+    .bubbleBtn {
+        margin-top: -100px;
+    }
+    
     circle {
         stroke: white;
         stroke-width: 1px;
@@ -129,8 +136,11 @@
         fill: #F95151;
     }
     
-    .bubbleBtn {
-        margin-top: -100px;
+    .legend-bubble {
+        fill-opacity: 1;
+        fill: rgb(255, 255, 255);
+        font-size: 14px;
+        font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
     }
     /* BIPARTITE */
     
@@ -158,17 +168,13 @@
         font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
     }
     
-    .label {
-        fill-opacity: 1;
-        fill: rgb(255, 255, 255);
-        font-size: 14px;
-        font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-    }
-    
     @media only screen and (max-device-width: 993px) {
         h3 {
             font-size: 12px;
             padding-top: 8px;
+        }
+        p {
+            font-size: 10px;
         }
         .sectionText {
             font-size: 10px;
@@ -179,9 +185,6 @@
         .icon {
             max-width: 8%;
             height: auto;
-        }
-        p {
-            font-size: 10px;
         }
         .bubbleChartButton {
             border: 1px solid grey;

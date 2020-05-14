@@ -38,14 +38,18 @@ class Bipartite {
             .fill(d => colorPrimary[d.primary]);
 
         g.call(bp);
-        g.selectAll(".mainBars").append("text").attr("class", "label")
+        g.selectAll(".mainBars")
+            .append("text")
+            .classed("label-bipartite", true)
             .attr("x", d => d.part == "primary" ? -5 : 0)
             .attr("y", d => d.part == "primary" ? 0 : 45)
             .attr("transform", d => d.part == "primary" ? "" : "rotate(20)")
             .text(d => d.key)
             .attr("text-anchor", d => d.part == "primary" ? "middle" : "start");
 
-        g.selectAll(".mainBars").append("text").attr("class", "perc")
+        g.selectAll(".mainBars")
+            .append("text")
+            .classed("perc", true)
             .attr("x", 0)
             .attr("transform", d => d.part == "primary" ? "" : "rotate(20)")
             .attr("y", d => (d.part == "primary" ? 12 : 60))
@@ -67,7 +71,7 @@ class Bipartite {
                 .style("opacity", d => d.key == keySelected || d.part == "primary" || primarySelected == "primary" ? 1 : 0.2)
                 .text(d => d3.format("0.0%")(d.percent));
             g.selectAll(".mainBars")
-                .select(".label")
+                .select(".label-bipartite")
                 .style("opacity", d => d.key == keySelected || d.part == "primary" || primarySelected == "primary" ? 1 : 0.2);
         }
 
@@ -78,7 +82,7 @@ class Bipartite {
                 .style("opacity", 1)
                 .text(d => d3.format("0.0%")(d.percent));
             g.selectAll(".mainBars")
-                .select(".label")
+                .select(".label-bipartite")
                 .style("opacity", 1);
         }
     }
