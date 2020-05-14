@@ -1,11 +1,11 @@
     html {
         scroll-behavior: smooth;
-        font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         font-size: 12px;
     }
     
     h1 {
-        font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         font-size: 28px;
         font-style: normal;
         font-variant: normal;
@@ -14,7 +14,7 @@
     }
     
     h3 {
-        font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         font-size: 16px;
         font-style: normal;
         font-variant: normal;
@@ -24,6 +24,7 @@
     }
     
     p {
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         font-size: 12px;
     }
     
@@ -35,6 +36,7 @@
     }
     
     .sectionText {
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         max-width: 1024px;
         margin: auto;
         text-align: justify;
@@ -44,17 +46,19 @@
     }
     
     a {
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         text-decoration: none;
         color: grey;
     }
     
     .topnav {
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         overflow: hidden;
         background-color: black;
-        font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
     }
     
     .btn {
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         border: none;
         outline: none;
         padding: 10px 10px;
@@ -70,12 +74,14 @@
     }
     
     header {
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         background-color: #000000;
         opacity: 1.0;
         margin-bottom: 10px;
     }
     
     footer {
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         font-size: 9px;
         color: #808080;
         bottom: 0;
@@ -86,10 +92,10 @@
     .label-bipartite,
     .label-canton,
     .label-bubble {
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         fill-opacity: 1;
         fill: rgb(255, 255, 255);
         font-size: 14px;
-        font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
     }
     /* MAP */
     
@@ -99,6 +105,7 @@
     }
     
     .cholorplethButton {
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         cursor: pointer;
         border: 1px solid grey;
         outline-style: solid;
@@ -129,6 +136,7 @@
     /* BUBBLE CHART */
     
     .bubbleChartButton {
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         cursor: pointer;
         border: 1px solid grey;
         outline-style: solid;
@@ -166,14 +174,16 @@
     }
     
     .legend-bubble {
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         fill-opacity: 1;
         fill: rgb(255, 255, 255);
         font-size: 14px;
-        font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
     }
     /* BIPARTITE */
     
     .mainBars {
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         shape-rendering: auto;
         fill-opacity: 0;
         stroke-width: 2px;
@@ -182,6 +192,7 @@
     }
     
     .subBars {
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         shape-rendering: crispEdges;
     }
     
@@ -191,10 +202,10 @@
     }
     
     .perc {
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         fill-opacity: 0.6;
         fill: rgb(255, 255, 255);
         font-size: 10px;
-        font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
     }
     
     @media only screen and (max-device-width: 993px) {
