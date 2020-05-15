@@ -28,14 +28,13 @@
             <p class="sectionText" style="padding-top: 130px;">
                 What were the numbers for physical and human resources in healthcare <i>before</i> COVID-19 ? One dataset from earlier this year (you know, when we were still able to hug our loved ones) and historical data are used in the following page
                 to illustrate the differences in resources in Switzerland. First, the interactive
-                <a href="#section1">map</a> allows to select the number of hospital beds and doctors per inhabitants for each canton. Then, we ask if the number of resources grow with the number of inhabitants and if the canton's <a href="#section2">wealth</a>                has any influence. Finally, a bipartite visualization is used to show the <a href="#section3">gender</a> repartition and how woman practionners may currently be more impacted during the pandemic as they outnumber man practionners in average
-                in the field of care.
+                <a href="#section1">map</a> allows to select the number of hospital beds and doctors per inhabitants for each canton. Then, we ask if the number of resources grow with the number of inhabitants and if the canton's <a href="#section2">wealth</a>                has any influence on the number of resources. Finally, a bipartite visualization is used to show the <i>unbalanced</i> <a href="#section3">gender</a> repartition and how woman practionners may currently be more impacted during the pandemic
+                as they outnumber man practionners in average in the field of care.
             </p>
         </div>
         <!-- Section 1: Interactive Map -->
         <div class="sectionPanel" id="section1">
             <h3 id="indicator-name">Switzerland</h3>
-            <p> <a>Select a canton on the map</a></p>
             <div class="sectionIcons">
                 <div class="w3-third">
                     <img class="icon" src="resources/demographic-icon.svg">
@@ -49,6 +48,8 @@
                     <img class="icon" src="resources/doctor-icon.svg">
                     <p id="indicator-doctors">2.26 doctors <br>for 1000 inhabitants</p>
                 </div>
+                <p> <a>Select a canton on the map</a></p>
+
             </div>
             <svg id="cholorpleth" width="100% " height="80%" viewBox="0 0 1280 720"></svg>
             <div class="btnCholorpleth">
@@ -61,14 +62,18 @@
         <!-- Section 2: Bubble Chart -->
         <div class="sectionPanel" id="section2">
             <h3> Does the number of resources grow with the number of inhabitants ?</h3>
-            <p class="sectionText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque neque lectus, placerat ac lacus non, mollis tristique felis. Vivamus mollis in odio in commodo. Nullam turpis augue, gravida quis rutrum vitae, volutpat non augue. Maecenas
-                egestas imperdiet diam, sed feugiat nisi hendrerit vel. Cras commodo rhoncus dictum. Duis blandit non lacus nec venenatis. Proin tincidunt leo sit amet est auctor malesuada nec non ipsum. Nunc ligula orci, scelerisque et lorem nec, dignissim
-                ornare ipsum.
+            <p class="sectionText">One can imagine that the more inhabitants per canton, the more hospital beds and doctors. However, the correlation is not so clear. For instance, in the number of doctors, we observe a disparty between blue and red bubbles - where the reds
+                represent the "rich" and the blues represent the cantons with a growth domestic product per capita equal or below the average. In this case, the red slope is steeper than the blue one and can be interpreted as a more significative increase
+                of resources per inhabitants for the rich cantons.
+
+                <br><br> For both resources, Zürich and Basel-Stadt appears as outliers. Basel-Stadt, the buisness center of Switzerland with less than 200’000 inhabitants, has the biggest growth domestic product per capita of all canton and the more
+                resources. As this could be seen as a <i> "wealthy-logic" </i> correlation, it is interesing to see that its numbers are far above the other red cantons’s trend. Zürich on the other hand, with the biggest population in Switzerland, has
+                a number of resources looking more similar to the blue trend despite its high growth domestic product per capita.
             </p>
             <svg id="bubbleChart" width="100%" height="80%" viewBox="0 0 1280 720"></svg>
             <div class="bubbleBtn">
-                <div class="bubbleChartButton btnResources activeButton" id="btn-beds"># Beds</div>
-                <div class="bubbleChartButton btnResources" id="btn-doctors"># Doctors</div>
+                <div class="bubbleChartButton btnResources" id="btn-beds"># Beds</div>
+                <div class="bubbleChartButton btnResources activeButton" id="btn-doctors"># Doctors</div>
                 <div class="bubbleChartButton btnRadius" id="btn-radius-w">GDP radius</div>
             </div>
         </div>

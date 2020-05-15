@@ -1,4 +1,4 @@
-let isPhysicalResourceMode = true;
+let isPhysicalResourceMode = false;
 let isBubbleRadiusUniform = true;
 let isSubsetSelected = false;
 let clickOnRed = false;
@@ -32,7 +32,7 @@ class BubbleChart {
             .call(x_axis)
             .attr("transform", "translate(" + offset / 2 + "," + this.chart_height * 1.5 + ")")
             // y-axis
-        this.y_range = [0, d3.max(map_data, d => d.properties.beds)];
+        this.y_range = [0, d3.max(map_data, d => d.properties.doctors)];
         this.y_scale = d3.scaleLinear()
             .domain(this.y_range)
             .range([this.chart_height, 0]);
@@ -52,7 +52,7 @@ class BubbleChart {
             .append("circle")
             .attr("r", d => bubble_radius)
             .attr("cx", d => x_scale(d.properties.density))
-            .attr("cy", d => this.y_scale(d.properties.beds))
+            .attr("cy", d => this.y_scale(d.properties.doctors))
             .classed("bubble", true)
             .classed('bubble-blue', d => d.properties.gdpPerCapita <= this.threshold)
             .classed('bubble-red', d => d.properties.gdpPerCapita >= this.threshold);
@@ -66,7 +66,7 @@ class BubbleChart {
             .append('text')
             .text(d => d.id)
             .attr('x', d => x_scale(d.properties.density) - this.bubble_label_shift)
-            .attr('y', d => this.y_scale(d.properties.beds) - this.bubble_label_shift)
+            .attr('y', d => this.y_scale(d.properties.doctors) - this.bubble_label_shift)
             .classed("label-bubble", true)
 
         // Draw legend
