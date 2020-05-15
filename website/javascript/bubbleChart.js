@@ -143,6 +143,11 @@ class BubbleChart {
                 .transition()
                 .duration(duration_transition)
                 .attr("r", isBubbleRadiusUniform ? bubble_radius : d => d.properties.gdpPerCapita);
+            d3.selectAll(".label-bubble")
+                .transition()
+                .duration(duration_transition)
+                .attr('x', d => isBubbleRadiusUniform ? x_scale(d.properties.density) - bubble_chart.bubble_label_shift : x_scale(d.properties.density) - d.properties.gdpPerCapita - label_padding / 8)
+                .attr('y', d => isBubbleRadiusUniform ? (isPhysicalResourceMode ? bubble_chart.y_scale(d.properties.beds) - 1.25 * bubble_radius : bubble_chart.y_scale(d.properties.doctors) - 1.25 * bubble_radius) : (isPhysicalResourceMode ? bubble_chart.y_scale(d.properties.beds) - d.properties.gdpPerCapita - label_padding / 8 : bubble_chart.y_scale(d.properties.doctors) - d.properties.gdpPerCapita - label_padding / 8))
         }
 
         // Interaction Bubble Chart Legend
