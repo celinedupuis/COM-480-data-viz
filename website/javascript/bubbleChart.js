@@ -8,7 +8,7 @@ class BubbleChart {
         this.svg = d3.select('#' + svg_element_id);
 
         // Scale to svg coordinate
-        const offset = 100;
+        const offset = 200;
         const svg_viewbox = this.svg.node().viewBox.animVal;
         this.svg_width = svg_viewbox.width;
         this.svg_height = svg_viewbox.height;
@@ -68,6 +68,17 @@ class BubbleChart {
             .attr('x', d => x_scale(d.properties.density) - this.bubble_label_shift)
             .attr('y', d => this.y_scale(d.properties.doctors) - this.bubble_label_shift)
             .classed("label-bubble", true)
+
+        this.chart_container.append('g')
+            .selectAll('text')
+            .data(map_data)
+            .enter()
+            .append('text')
+            .text(d => d.properties.gdpPerCapitaRow + " CHF")
+            .classed("label-gdp", true)
+            .style("opacity", 0)
+            .attr('x', d => x_scale(d.properties.density) + this.bubble_label_shift)
+            .attr('y', d => this.y_scale(d.properties.doctors))
 
         // Draw legend
         const legend_blue_w = this.chart_width * 4 / 5;
@@ -143,7 +154,7 @@ class BubbleChart {
             .append('text')
             .text("Inhabitants in 1000")
             .classed("label", true)
-            .attr("transform", "translate(" + ((this.chart_width / 2) - label_padding * 3 / 4) + "," + (this.chart_height * 1.5 + label_padding) + ")");
+            .attr("transform", "translate(" + (this.chart_width * 0.95) + "," + (this.chart_height * 1.5 + label_padding) + ")");
 
         // Interaction Bubble Chart Radius
         d3.selectAll("#btn-radius-w")
@@ -257,6 +268,8 @@ class BubbleChart {
                 .transition()
                 .duration(duration_transition)
                 .attr('y', d => isPhysicalResourceMode ? bubble_chart.y_scale(d.properties.beds) - bubble_chart.bubble_label_shift : bubble_chart.y_scale(d.properties.doctors) - bubble_chart.bubble_label_shift)
+            d3.selectAll(".label-gdp")
+                .attr('y', d => isPhysicalResourceMode ? bubble_chart.y_scale(d.properties.beds) : bubble_chart.y_scale(d.properties.doctors))
         }
     }
 }

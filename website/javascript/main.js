@@ -104,6 +104,9 @@ whenDocumentLoaded(() => {
                 d3.selectAll(".label-bubble")
                     .text(d => d.id == overID ? d.properties.name : "")
                     .style("font-size", d => d.id == overID ? font_size_selected : font_size_default);
+                d3.selectAll(".label-gdp")
+                    .text(d => d.id == overID ? (d.properties.gdpPerCapitaRow + " CHF") : "")
+                    .style("opacity", 1);
             }
         }
 
@@ -127,6 +130,9 @@ whenDocumentLoaded(() => {
                 d3.selectAll(".label-bubble")
                     .text(d => d.id == cantonSelectedID ? d.properties.name : "")
                     .style("font-size", d => d.id == cantonSelectedID ? font_size_selected : font_size_default);
+                d3.selectAll(".label-gdp")
+                    .text(d => d.id == cantonSelectedID ? (d.properties.gdpPerCapitaRow + " CHF") : "")
+                    .style("opacity", 1);
             } else {
                 unselectCanton(d);
             }
@@ -150,6 +156,8 @@ whenDocumentLoaded(() => {
                 d3.selectAll(".label-bubble")
                     .text(d => d.id)
                     .style("font-size", font_size_default);
+                d3.selectAll(".label-gdp")
+                    .style("opacity", 0);
             }
         }
 
