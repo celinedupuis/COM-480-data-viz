@@ -68,9 +68,9 @@ class SwissMap {
 
         // Draw legend
         const legend_max_w = this.svg_width * 4 / 5;
-        const legend_max_h = 200;
+        const legend_max_h = 160;
         const legend_min_w = this.svg_width * 4 / 5;
-        const legend_min_h = 230;
+        const legend_min_h = legend_max_h + 30;
         const size_rect = 20;
 
         // - max rect
@@ -110,6 +110,25 @@ class SwissMap {
             .classed("legend-min-text", true)
             .text("Min: " + densityToString(d3.min(map_data, d => d.properties.density)))
             .attr("transform", "translate(" + (legend_min_w + 1.25 * size_rect) + "," + (legend_min_h + 0.75 * size_rect) + ")");
+
+        // - instruction
+        this.svg.append('g')
+            .append("text")
+            .classed("instruction", true)
+            .text("Overlay or click on the legend")
+            .attr("transform", "translate(" + (legend_min_w + 1.25 * size_rect) + "," + (legend_min_h + 2 * size_rect) + ")");
+
+        this.svg.append('g')
+            .append("text")
+            .classed("instruction", true)
+            .text("to see which cantons correspond")
+            .attr("transform", "translate(" + (legend_min_w + 1.25 * size_rect) + "," + (legend_min_h + 2.75 * size_rect) + ")");
+
+        this.svg.append('g')
+            .append("text")
+            .classed("instruction", true)
+            .text("to the min and max")
+            .attr("transform", "translate(" + (legend_min_w + 1.25 * size_rect) + "," + (legend_min_h + 3.5 * size_rect) + ")");
 
         // - title
         this.svg.append('g')

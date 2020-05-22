@@ -27,7 +27,7 @@
         <div>
             <p class="sectionText" style="padding-top: 130px;">
                 What were the numbers for physical and human resources in healthcare <i>before</i> COVID-19 ? One dataset from earlier this year (you know, when we were still able to hug our loved ones) and historical data are used in the following page
-                to illustrate the differences in resources in Switzerland. First, the interactive
+                to illustrate the numbers in Switzerland. First, the interactive
                 <a href="#section1">map</a> allows to select the number of hospital beds and doctors per inhabitants for each canton. Then, we ask if the number of resources grow with the number of inhabitants and if the canton's <a href="#section2">wealth</a>                has any influence on the number of resources. Finally, a bipartite visualization is used to show the <i>unbalanced</i> <a href="#section3">gender</a> repartition and how woman practionners may currently be more impacted during the pandemic
                 as they outnumber man practionners in average in the field of care.
             </p>
@@ -48,8 +48,7 @@
                     <img class="icon" src="resources/doctor-icon.svg">
                     <p id="indicator-doctors">2.26 doctors <br>for 1000 inhabitants</p>
                 </div>
-                <p> <a>Select a canton on the map</a></p>
-
+                <p class="instruction">Select a canton on the map</p>
             </div>
             <svg id="cholorpleth" width="100% " height="80%" viewBox="0 0 1280 720"></svg>
             <div class="btnCholorpleth">
@@ -66,9 +65,9 @@
                 represent the "rich" and the blues represent the cantons with a growth domestic product per capita equal or below the average. In this case, the red slope is steeper than the blue one and can be interpreted as a more significative increase
                 of resources per inhabitants for the rich cantons.
 
-                <br><br> For both resources, Zürich and Basel-Stadt appears as outliers. Basel-Stadt, the buisness center of Switzerland with less than 200’000 inhabitants, has the biggest growth domestic product per capita of all canton and the more
-                resources. As this could be seen as a <i> "wealthy-logic" </i> correlation, it is interesing to see that its numbers are far above the other red cantons’s trend. Zürich on the other hand, with the biggest population in Switzerland, has
-                a number of resources looking more similar to the blue trend despite its high growth domestic product per capita.
+                <br><br> For both resources, Zürich and Basel-Stadt appears as outliers. Basel-Stadt, the buisness center of Switzerland with less than 200’000 inhabitants, has the biggest growth domestic product per capita and the more resources. As
+                this could be seen as a <i> "wealthy-logic" </i> correlation, it is interesing to see that its numbers are far above the other red cantons’s trend. Zürich on the other hand, with the biggest population in Switzerland, has a number of resources
+                looking more similar to the blue trend despite its high growth domestic product per capita.
             </p>
             <svg id="bubbleChart" width="100%" height="80%" viewBox="0 0 1280 720"></svg>
             <div class="bubbleBtn">
@@ -89,8 +88,19 @@
         </div>
 
         <!-- Section 4: Source -->
-        <div class="sectionPanel" id="section4">
-            <h3> Source</h3>
+        <div id="section4">
+            <h3 class="sectionSource"> Source</h3>
+            <p class="sectionSource">
+                <a href="https://opendata.swiss/en/dataset/ausgewahlte-indikatoren-im-regionalen-vergleich-2020-kantone" target="_blank">[1]</a><b> Regional comparison of selected indicators 2020</b> <br><i> Federal Statistical Office FSO - 28.01.2020</i>
+                <br>This dataset contains different indicators for each cantons such as populaton numbers, economic and health. The number of beds per inhabitants corresponds to the total number of beds, meaning hospital beds, clinical beds and psychiatric
+                beds.
+                <br><br><br>
+                <a href="https://opendata.swiss/en/dataset/gesundheitsberufe-nach-geschlecht-diplomierungen-seit-1980" target="_blank">[2]</a><b> Professions de la santé selon le sexe: diplômes délivrés depuis 1980</b> <br><i> Federal Statistical Office FSO - 2007 </i>
+                <br>The dataset spans over 20 years which allows to analyse the trend over time. By plotting the male/female ratio for each category of jobs, we can see that the gender gap is going down over the years for doctors and dentists but does
+                not change (or even get bigger) for the nurses, caregivers and midwives. What is also very interesting in this dataset is that all the categories contains two columns for male and female, except for the midwives. Is it really true that
+                no man were practionners in this field before 2005 or it is just because the name of the function is gender-biased?
+                <br>
+            </p>
         </div>
     </div>
     <!-- Load Scripts -->
@@ -103,4 +113,5 @@
     <script src="javascript/bubbleChart.js"></script>
     <script src="javascript/genderBipartite.js"></script>
 </body>
-</htm
+
+</html>

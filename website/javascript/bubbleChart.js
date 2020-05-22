@@ -71,9 +71,9 @@ class BubbleChart {
 
         // Draw legend
         const legend_blue_w = this.chart_width * 4 / 5;
-        const legend_blue_h = 200;
+        const legend_blue_h = 180;
         const legend_red_w = this.chart_width * 4 / 5;
-        const legend_red_h = 230;
+        const legend_red_h = legend_blue_h + 30;
         const size_rect = 20;
 
         // - rect blue
@@ -111,19 +111,33 @@ class BubbleChart {
             .text("GDP above average")
             .attr("transform", "translate(" + (legend_red_w + 1.25 * size_rect) + "," + (legend_red_h + 0.75 * size_rect) + ")")
 
+        // - instruction
+        this.svg.append('g')
+            .append("text")
+            .classed("instruction", true)
+            .text("Overlay or click on the legend")
+            .attr("transform", "translate(" + (legend_red_w + 1.25 * size_rect) + "," + (legend_red_h + 2 * size_rect) + ")")
+
+        // - instruction
+        this.svg.append('g')
+            .append("text")
+            .classed("instruction", true)
+            .text("to select only the red or the blue bubbles")
+            .attr("transform", "translate(" + (legend_red_w + 1.25 * size_rect) + "," + (legend_red_h + 2.75 * size_rect) + ")")
+
         // Draw axis label
         this.svg.append('g')
             .append('text')
-            .text("# Beds")
+            .text("# Doctors")
             .classed("label", true)
             .classed("yaxis-label", true)
             .style("font-size", 20)
-            .attr("transform", "translate(" + (legend_blue_w) + "," + (legend_blue_h - 1.5 * label_padding) + ")");
+            .attr("transform", "translate(" + (legend_blue_w) + "," + (legend_blue_h - label_padding) + ")");
         this.svg.append('g')
             .append('text')
             .text("per 1000 inhabitants")
             .classed("label", true)
-            .attr("transform", "translate(" + (legend_blue_w) + "," + (legend_blue_h - label_padding) + ")");
+            .attr("transform", "translate(" + (legend_blue_w) + "," + (legend_blue_h - 0.5 * label_padding) + ")");
         // - population
         this.svg.append('g')
             .append('text')

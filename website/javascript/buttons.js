@@ -41,7 +41,7 @@ whenDocumentLoaded(() => {
     }
 
     const btnRadius = document.getElementsByClassName("btnRadius");
-    let isUniformRadius = false;
+    let isUniformRadius = true;
     btnRadius[0].addEventListener("click", function() {
         isUniformRadius = !isUniformRadius;
         if (isUniformRadius) {
