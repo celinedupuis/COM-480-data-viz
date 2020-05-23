@@ -107,6 +107,7 @@
     .label,
     .label-canton,
     .label-bubble,
+    .label-chart,
     .label-gdp {
         font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         fill-opacity: 1;
