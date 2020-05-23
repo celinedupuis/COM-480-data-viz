@@ -105,7 +105,6 @@
     /* Labels */
     
     .label,
-    .label-bipartite,
     .label-canton,
     .label-bubble,
     .label-gdp {
@@ -208,6 +207,13 @@
     }
     /* BIPARTITE */
     
+    .label-bipartite {
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
+        fill-opacity: 1;
+        fill: rgb(255, 255, 255);
+        font-size: 16px;
+    }
+    
     .mainBars {
         font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         shape-rendering: auto;
@@ -231,7 +237,7 @@
         font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         fill-opacity: 0.6;
         fill: rgb(255, 255, 255);
-        font-size: 10px;
+        font-size: 14px;
     }
     
     @media only screen and (max-device-width: 993px) {

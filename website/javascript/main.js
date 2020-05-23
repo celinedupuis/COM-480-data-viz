@@ -9,6 +9,7 @@ const opacity_unselected = 0.3;
 const opacity_default = 1;
 const bubble_radius = 15;
 const red = "#F95151"
+const blue = "#4287f5"
 const white = "#FFFFFF"
 
 // Main variables
@@ -24,7 +25,7 @@ function whenDocumentLoaded(action) {
 }
 
 whenDocumentLoaded(() => {
-    // Data CSV
+    // Data Swiss Indicators
     const indicators_promise = d3.csv("data/swiss_indicators_2020.csv").then((data) => {
         let population = {};
         let gdpPerCapita = {};
@@ -48,8 +49,20 @@ whenDocumentLoaded(() => {
         return canton_paths.features;
     });
 
+    // Data ICU beds
+    const icu_promise = d3.csv("data/swiss_icu_2020.csv").then((data) => {
+        let ICUbefore = {};
+        let ICUafter = {};
+        data.forEach((row) => {
+            ICUbefore[row.id] = parseFloat(row.ICUbefore);
+            ICUafter[row.id] = parseFloat(row.ICUafter);
+        });
+        return { ICUbefore, ICUafter };
+    });
+
+
     // Load Data in Promise
-    Promise.all([indicators_promise, map_promise]).then((results) => {
+    Promise.all([indicators_promise, map_promise, icu_promise]).then((results) => {
         let map_data = results[1];
         map_data.map(x => {
             x.properties.density = results[0].population[x.id];
@@ -57,12 +70,16 @@ whenDocumentLoaded(() => {
             x.properties.gdpPerCapitaRow = results[0].gdpPerCapitaRow[x.id];
             x.properties.beds = results[0].beds[x.id];
             x.properties.doctors = results[0].doctors[x.id];
+            x.properties.ICUbefore = results[2].ICUbefore[x.id];
+            x.properties.ICUafter = results[2].ICUafter[x.id];
         });
 
         // Create Data Viz
         cholorpleth = new SwissMap(map_data, 'cholorpleth');
-        bubble_chart = new BubbleChart(map_data, 'bubbleChart');
+        bubbleChart = new BubbleChart(map_data, 'bubbleChart');
         bipartite = new Bipartite('bipartite');
+        barChart = new BarChart(map_data, 'barChart')
+
 
         // Interaction Overlay/Click
         d3.selectAll(".canton")

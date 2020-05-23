@@ -2,7 +2,7 @@ class Bipartite {
     constructor(svg_element_id) {
         this.svg = d3.select('#' + svg_element_id);
         const svg_viewbox = this.svg.node().viewBox.animVal;
-
+        this.svg_height = svg_viewbox.height;
         const data = [
             ['Men', 'Doctors', 8845],
             ['Men', 'Dentists', 1450],
@@ -30,9 +30,9 @@ class Bipartite {
         const bp = viz.bP()
             .data(data)
             .pad(5)
-            .height(400)
+            .height(this.svg_height * 0.7)
             .width(svg_viewbox.width)
-            .barSize(45)
+            .barSize(55)
             .sortSecondary(sortSec)
             .orient("horizontal")
             .fill(d => colorPrimary[d.primary]);
@@ -52,7 +52,7 @@ class Bipartite {
             .classed("perc", true)
             .attr("x", 0)
             .attr("transform", d => d.part == "primary" ? "" : "rotate(20)")
-            .attr("y", d => (d.part == "primary" ? 12 : 60))
+            .attr("y", d => (d.part == "primary" ? 15 : 60))
             .attr("text-anchor", d => d.part == "primary" ? "middle" : "start")
             .text(d => d3.format("0.0%")(d.percent));
 

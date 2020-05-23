@@ -30,8 +30,8 @@ class BubbleChart {
             .scale(x_scale);
         this.svg.append("g")
             .call(x_axis)
-            .attr("transform", "translate(" + offset / 2 + "," + this.chart_height * 1.5 + ")")
-            // y-axis
+            .attr("transform", "translate(" + offset / 2 + "," + this.chart_height * 1.5 + ")");
+        // y-axis
         this.y_range = [0, d3.max(map_data, d => d.properties.doctors)];
         this.y_scale = d3.scaleLinear()
             .domain(this.y_range)
@@ -171,8 +171,8 @@ class BubbleChart {
             d3.selectAll(".label-bubble")
                 .transition()
                 .duration(duration_transition)
-                .attr('x', d => isBubbleRadiusUniform ? x_scale(d.properties.density) - bubble_chart.bubble_label_shift : x_scale(d.properties.density) - d.properties.gdpPerCapita - label_padding / 8)
-                .attr('y', d => isBubbleRadiusUniform ? (isPhysicalResourceMode ? bubble_chart.y_scale(d.properties.beds) - 1.25 * bubble_radius : bubble_chart.y_scale(d.properties.doctors) - 1.25 * bubble_radius) : (isPhysicalResourceMode ? bubble_chart.y_scale(d.properties.beds) - d.properties.gdpPerCapita - label_padding / 8 : bubble_chart.y_scale(d.properties.doctors) - d.properties.gdpPerCapita - label_padding / 8))
+                .attr('x', d => isBubbleRadiusUniform ? x_scale(d.properties.density) - bubbleChart.bubble_label_shift : x_scale(d.properties.density) - d.properties.gdpPerCapita - label_padding / 8)
+                .attr('y', d => isBubbleRadiusUniform ? (isPhysicalResourceMode ? bubbleChart.y_scale(d.properties.beds) - 1.25 * bubble_radius : bubbleChart.y_scale(d.properties.doctors) - 1.25 * bubble_radius) : (isPhysicalResourceMode ? bubbleChart.y_scale(d.properties.beds) - d.properties.gdpPerCapita - label_padding / 8 : bubbleChart.y_scale(d.properties.doctors) - d.properties.gdpPerCapita - label_padding / 8))
         }
 
         // Interaction Bubble Chart Legend
@@ -213,11 +213,11 @@ class BubbleChart {
             d3.selectAll(".bubble")
                 .transition()
                 .duration(duration_transition / 2)
-                .style('opacity', clickOnRed ? (d => d.properties.gdpPerCapita > bubble_chart.threshold ? opacity_default : 0) : (d => d.properties.gdpPerCapita <= bubble_chart.threshold ? opacity_default : 0));
+                .style('opacity', clickOnRed ? (d => d.properties.gdpPerCapita > bubbleChart.threshold ? opacity_default : 0) : (d => d.properties.gdpPerCapita <= bubbleChart.threshold ? opacity_default : 0));
             d3.selectAll(".label-bubble")
                 .transition()
                 .duration(duration_transition / 2)
-                .style('opacity', clickOnRed ? (d => d.properties.gdpPerCapita > bubble_chart.threshold ? opacity_default : 0) : (d => d.properties.gdpPerCapita <= bubble_chart.threshold ? opacity_default : 0));
+                .style('opacity', clickOnRed ? (d => d.properties.gdpPerCapita > bubbleChart.threshold ? opacity_default : 0) : (d => d.properties.gdpPerCapita <= bubbleChart.threshold ? opacity_default : 0));
         }
 
         function unselectSubsetBubble() {
@@ -248,28 +248,28 @@ class BubbleChart {
 
         function changeMode(physicalResourceMode) {
             isPhysicalResourceMode = physicalResourceMode;
-            bubble_chart.y_range = [0, d3.max(map_data, d => isPhysicalResourceMode ? d.properties.beds : d.properties.doctors)];
-            bubble_chart.y_scale = d3.scaleLinear()
-                .domain(bubble_chart.y_range)
-                .range([bubble_chart.chart_height, 0]);
+            bubbleChart.y_range = [0, d3.max(map_data, d => isPhysicalResourceMode ? d.properties.beds : d.properties.doctors)];
+            bubbleChart.y_scale = d3.scaleLinear()
+                .domain(bubbleChart.y_range)
+                .range([bubbleChart.chart_height, 0]);
             d3.selectAll(".bubble")
                 .transition()
                 .duration(duration_transition)
-                .attr("cy", d => isPhysicalResourceMode ? bubble_chart.y_scale(d.properties.beds) : bubble_chart.y_scale(d.properties.doctors));
+                .attr("cy", d => isPhysicalResourceMode ? bubbleChart.y_scale(d.properties.beds) : bubbleChart.y_scale(d.properties.doctors));
             d3.selectAll('.yaxis-label')
                 .text(isPhysicalResourceMode ? "# Beds" : "# Doctors")
-            bubble_chart.y_axis = d3.axisLeft()
-                .scale(bubble_chart.y_scale);
+            bubbleChart.y_axis = d3.axisLeft()
+                .scale(bubbleChart.y_scale);
             d3.selectAll(".yaxis")
                 .transition()
                 .duration(duration_transition)
-                .call(bubble_chart.y_axis)
+                .call(bubbleChart.y_axis)
             d3.selectAll(".label-bubble")
                 .transition()
                 .duration(duration_transition)
-                .attr('y', d => isPhysicalResourceMode ? bubble_chart.y_scale(d.properties.beds) - bubble_chart.bubble_label_shift : bubble_chart.y_scale(d.properties.doctors) - bubble_chart.bubble_label_shift)
+                .attr('y', d => isPhysicalResourceMode ? bubbleChart.y_scale(d.properties.beds) - bubbleChart.bubble_label_shift : bubbleChart.y_scale(d.properties.doctors) - bubbleChart.bubble_label_shift)
             d3.selectAll(".label-gdp")
-                .attr('y', d => isPhysicalResourceMode ? bubble_chart.y_scale(d.properties.beds) : bubble_chart.y_scale(d.properties.doctors))
+                .attr('y', d => isPhysicalResourceMode ? bubbleChart.y_scale(d.properties.beds) : bubbleChart.y_scale(d.properties.doctors))
         }
     }
 }
