@@ -42,7 +42,7 @@ class Bipartite {
             .append("text")
             .classed("label-bipartite", true)
             .attr("x", d => d.part == "primary" ? -5 : 0)
-            .attr("y", d => d.part == "primary" ? 0 : 45)
+            .attr("y", d => d.part == "primary" ? 0 : 50)
             .attr("transform", d => d.part == "primary" ? "" : "rotate(20)")
             .text(d => d.key)
             .attr("text-anchor", d => d.part == "primary" ? "middle" : "start");
@@ -52,7 +52,7 @@ class Bipartite {
             .classed("perc", true)
             .attr("x", 0)
             .attr("transform", d => d.part == "primary" ? "" : "rotate(20)")
-            .attr("y", d => (d.part == "primary" ? 15 : 60))
+            .attr("y", d => (d.part == "primary" ? 15 : 65))
             .attr("text-anchor", d => d.part == "primary" ? "middle" : "start")
             .text(d => d3.format("0.0%")(d.percent));
 

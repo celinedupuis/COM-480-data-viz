@@ -20,7 +20,7 @@ whenDocumentLoaded(() => {
         });
     }
 
-    // Cholorpleth buttons
+    // Cholorpleth
     const btnCholorpleth = document.getElementsByClassName("cholorplethButton");
     for (let i = 0; i < btnCholorpleth.length; i++) {
         btnCholorpleth[i].addEventListener("click", function() {
@@ -30,7 +30,17 @@ whenDocumentLoaded(() => {
         });
     }
 
-    // Bubble chart buttons
+    // BarChart
+    const btnBar = document.getElementsByClassName("barChartButton");
+    for (let i = 0; i < btnBar.length; i++) {
+        btnBar[i].addEventListener("click", function() {
+            let current = document.getElementsByClassName("activeBarChartButton");
+            current[0].className = current[0].className.replace(" activeBarChartButton", "");
+            this.className += " activeBarChartButton";
+        });
+    }
+
+    // BubbleChart
     const btnResources = document.getElementsByClassName("btnResources");
     for (let i = 0; i < btnResources.length; i++) {
         btnResources[i].addEventListener("click", function() {

@@ -5,7 +5,7 @@ const font_size_selected = 20;
 const stroke_width_unselected = 0.2;
 const stroke_width_default = 1;
 const stroke_width_selected = 5;
-const opacity_unselected = 0.3;
+const opacity_unselected = 0.2;
 const opacity_default = 1;
 const bubble_radius = 15;
 const red = "#F95151"
@@ -80,9 +80,23 @@ whenDocumentLoaded(() => {
         bipartite = new Bipartite('bipartite');
         barChart = new BarChart(map_data, 'barChart')
 
-
         // Interaction Overlay/Click
         d3.selectAll(".canton")
+            .on("mouseover", overlayCanton)
+            .on("mouseout", unselectCanton)
+            .on("click", selectCanton)
+
+        d3.selectAll(".label-canton")
+            .on("mouseover", overlayCanton)
+            .on("mouseout", unselectCanton)
+            .on("click", selectCanton)
+
+        d3.selectAll(".blue-bar")
+            .on("mouseover", overlayCanton)
+            .on("mouseout", unselectCanton)
+            .on("click", selectCanton)
+
+        d3.selectAll(".red-bar")
             .on("mouseover", overlayCanton)
             .on("mouseout", unselectCanton)
             .on("click", selectCanton)
@@ -97,10 +111,17 @@ whenDocumentLoaded(() => {
             .on("mouseout", unselectCanton)
             .on("click", selectCanton)
 
-        d3.selectAll(".label-canton")
-            .on("mouseover", overlayCanton)
-            .on("mouseout", unselectCanton)
-            .on("click", selectCanton)
+        d3.selectAll("#btn-normalized")
+            .on("click", function() {
+                reset();
+                normalizedChart(true);
+            })
+
+        d3.selectAll("#btn-total")
+            .on("click", function() {
+                reset();
+                normalizedChart(false);
+            })
 
         function overlayCanton(d) {
             if (!isCantonSelected) {
@@ -114,6 +135,17 @@ whenDocumentLoaded(() => {
                     .text(d => d.id == overID ? d.properties.name : "")
                     .style("font-size", d => d.id == overID ? font_size_selected : font_size_default);
                 updateIndicators(overID);
+
+                // bar chart
+                d3.selectAll(".red-bar")
+                    .style("fill-opacity", d => d.id == overID ? opacity_default : opacity_unselected)
+                    .style("stroke-width", d => d.id == overID ? stroke_width_default : stroke_width_unselected);
+                d3.selectAll(".blue-bar")
+                    .style("fill-opacity", d => d.id == overID ? opacity_default : opacity_unselected)
+                    .style("stroke-width", d => d.id == overID ? stroke_width_default : stroke_width_unselected);
+                d3.selectAll(".label-bar")
+                    .style("opacity", d => d.id == overID ? opacity_default : opacity_unselected)
+
                 // bubble chart
                 d3.selectAll(".bubble")
                     .style("fill-opacity", d => d.id == overID ? opacity_default : opacity_unselected)
@@ -140,6 +172,17 @@ whenDocumentLoaded(() => {
                     .text(d => d.id == cantonSelectedID ? d.properties.name : "")
                     .style("font-size", d => d.id == cantonSelectedID ? font_size_selected : font_size_default);
                 updateIndicators(cantonSelectedID);
+
+                // bar chart
+                d3.selectAll(".red-bar")
+                    .style("fill-opacity", d => d.id == cantonSelectedID ? opacity_default : 2 * opacity_unselected)
+                    .style("stroke-width", d => d.id == cantonSelectedID ? stroke_width_selected / 2 : stroke_width_unselected);
+                d3.selectAll(".blue-bar")
+                    .style("fill-opacity", d => d.id == cantonSelectedID ? opacity_default : 2 * opacity_unselected)
+                    .style("stroke-width", d => d.id == cantonSelectedID ? stroke_width_selected / 2 : stroke_width_unselected);
+                d3.selectAll(".label-bar")
+                    .style("opacity", d => d.id == cantonSelectedID ? opacity_default : opacity_unselected)
+
                 // bubble chart
                 d3.selectAll(".bubble")
                     .style("fill-opacity", d => d.id == cantonSelectedID ? opacity_default : 2 * opacity_unselected)
@@ -155,27 +198,42 @@ whenDocumentLoaded(() => {
             }
         }
 
-        function unselectCanton(d) {
+        function unselectCanton() {
             if (!isCantonSelected) {
-                // cholorpleth
-                d3.selectAll(".canton")
-                    .style("fill-opacity", opacity_default)
-                    .style("stroke-width", stroke_width_default / 2)
-                    .style("stroke", white);
-                d3.selectAll(".label-canton")
-                    .text(d => d.id)
-                    .style("font-size", font_size_default)
-                defaultIndicators();
-                // bubble chart
-                d3.selectAll(".bubble")
-                    .style("fill-opacity", opacity_default)
-                    .style("stroke-width", stroke_width_default);
-                d3.selectAll(".label-bubble")
-                    .text(d => d.id)
-                    .style("font-size", font_size_default);
-                d3.selectAll(".label-gdp")
-                    .style("opacity", 0);
+                reset();
             }
+        }
+
+        function reset() {
+            // cholorpleth
+            d3.selectAll(".canton")
+                .style("fill-opacity", opacity_default)
+                .style("stroke-width", stroke_width_default / 2)
+                .style("stroke", white);
+            d3.selectAll(".label-canton")
+                .text(d => d.id)
+                .style("font-size", font_size_default)
+            defaultIndicators();
+
+            // bar chart
+            d3.selectAll(".red-bar")
+                .style("fill-opacity", opacity_default)
+                .style("stroke-width", stroke_width_default / 2);
+            d3.selectAll(".blue-bar")
+                .style("fill-opacity", opacity_default)
+                .style("stroke-width", stroke_width_default / 2);
+            d3.selectAll(".label-bar")
+                .style("opacity", opacity_default)
+
+            // bubble chart
+            d3.selectAll(".bubble")
+                .style("fill-opacity", opacity_default)
+                .style("stroke-width", stroke_width_default);
+            d3.selectAll(".label-bubble")
+                .text(d => d.id)
+                .style("font-size", font_size_default);
+            d3.selectAll(".label-gdp")
+                .style("opacity", 0);
         }
 
         function updateIndicators(currentCanton) {
@@ -204,6 +262,72 @@ whenDocumentLoaded(() => {
             document.getElementById("indicator-demographic").innerHTML = "8’544’527 <br> inhabitants";
             document.getElementById("indicator-beds").innerHTML = "4.4 hospital beds <br> for 1000 inhabitants";
             document.getElementById("indicator-doctors").innerHTML = "2.26 doctors <br> for 1000 inhabitants";
+        }
+
+        function normalizedChart(isNormalized) {
+            if (isNormalized) {
+                barChart.y_domain = [0, 0.5];
+                barChart.y_scale = d3.scaleLinear()
+                    .domain(barChart.y_domain)
+                    .range([barChart.chart_height * 3 / 4, 0]);
+                barChart.y_axis = d3.axisLeft()
+                    .scale(barChart.y_scale);
+                d3.selectAll(".y-axis-bar")
+                    .transition()
+                    .duration(duration_transition)
+                    .call(barChart.y_axis)
+            } else {
+                barChart.y_domain = [0, d3.max(map_data, d => d.properties.ICUafter)];
+                barChart.y_scale = d3.scaleLinear()
+                    .domain(barChart.y_domain)
+                    .range([barChart.chart_height * 3 / 4, 0]);
+                barChart.y_axis = d3.axisLeft()
+                    .scale(barChart.y_scale);
+                d3.selectAll(".y-axis-bar")
+                    .transition()
+                    .duration(duration_transition)
+                    .call(barChart.y_axis)
+            }
+
+            const duration_switch = 80;
+            d3.selectAll(".red-bar")
+                .data(isNormalized ? barChart.data.sort(function(a, b) { return (b.properties.ICUafter / b.properties.density) - (a.properties.ICUafter / a.properties.density) }) : barChart.data.sort(function(a, b) { return b.properties.ICUafter - a.properties.ICUafter }))
+                .transition()
+                .delay(function(d, i) {
+                    return i * duration_switch;
+                })
+                .attr("x", (d, i) => barChart.x_scale(i) + barChart.width_bar)
+                .attr("y", d => isNormalized ? barChart.y_scale(d.properties.ICUafter / d.properties.density) : barChart.y_scale(d.properties.ICUafter))
+                .attr("fill", red)
+                .attr("opacity", 1)
+                .attr("width", barChart.width_bar)
+                .attr("height", d => isNormalized ? (barChart.chart_height * 3 / 4) - barChart.y_scale(d.properties.ICUafter / d.properties.density) : (barChart.chart_height * 3 / 4) - barChart.y_scale(d.properties.ICUafter));
+
+            d3.selectAll(".blue-bar")
+                .data(isNormalized ? barChart.data.sort(function(a, b) { return (b.properties.ICUafter / b.properties.density) - (a.properties.ICUafter / a.properties.density) }) : barChart.data.sort(function(a, b) { return b.properties.ICUafter - a.properties.ICUafter }))
+                .transition()
+                .delay(function(d, i) {
+                    return i * duration_switch;
+                })
+                .attr("x", (d, i) => barChart.x_scale(i))
+                .attr("y", d => isNormalized ? barChart.y_scale(d.properties.ICUbefore / d.properties.density) : barChart.y_scale(d.properties.ICUbefore))
+                .attr("fill", blue)
+                .attr("opacity", 1)
+                .attr("width", barChart.width_bar)
+                .attr("height", d => isNormalized ? (barChart.chart_height * 3 / 4) - barChart.y_scale(d.properties.ICUbefore / d.properties.density) : (barChart.chart_height * 3 / 4) - barChart.y_scale(d.properties.ICUbefore));
+
+            d3.selectAll(".label-bar")
+                .data(isNormalized ? barChart.data.sort(function(a, b) { return (b.properties.ICUafter / b.properties.density) - (a.properties.ICUafter / a.properties.density) }) : barChart.data.sort(function(a, b) { return b.properties.ICUafter - a.properties.ICUafter }))
+                .transition()
+                .delay(function(d, i) {
+                    return i * duration_switch;
+                })
+                .text(d => d.id)
+                .attr("x", (d, i) => barChart.x_scale(i) + barChart.width_bar / 2)
+                .attr("y", (barChart.chart_height * 3 / 4) + 30)
+
+            d3.selectAll(".yaxis-label-bar")
+                .text(d => isNormalized ? "# ICU beds (normalized by density)" : "# ICU Beds")
         }
     });
 });

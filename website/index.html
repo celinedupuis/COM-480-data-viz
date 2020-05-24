@@ -14,7 +14,7 @@
     <header class="w3-top w3-center w3-padding-8">
         <h1>Healthcare Resources in Switzerland</h1>
         <div>
-            <a class="btn" href="#section1">Map</a>
+            <a class="btn" href="#section1">General</a>
             <a class="btn" href="#section2">ICU</a>
             <a class="btn" href="#section3">Wealth</a>
             <a class="btn" href="#section4">Gender</a>
@@ -27,10 +27,11 @@
         <!-- Intro -->
         <div>
             <p class="sectionText" style="padding-top: 130px;">
-                Recent datasets as well as historical data<sup><a href="#section5">*</a></sup> are used in the following page to illustrate the healthcare resources in Switzerland. The interactive <a href="#section1">map</a> allows to select the cantons
-                for which you seek informations. It will automatically select the same canton on the other visualizations of the page. In the second section, we compare the number of <a href="#section2">ICU</a> beds per cantons before and during the pandemic.
-                In the third section, we ask if the number of resources grow with the number of inhabitants and if the canton's <a href="#section3">wealth</a> has any influence on the number of resources. Finally, a bipartite visualization is used to
-                show the unbalanced <a href="#section4">gender</a> repartition in healthcare and how woman practionners may currently be more impacted during the pandemic as they outnumber man practionners over the years.
+                Recent datasets as well as historical data<sup><a href="#section5">*</a></sup> are used in the following page to illustrate the healthcare resources in Switzerland. The interactive map allows to select the canton for which you seek
+                <a href="#section1">general</a> informations. It will automatically select the same canton on the other visualizations. In the second section, we compare the number of <a href="#section2">ICU</a> beds per canton certified at the beginning
+                of the soft lockdown and the recent listed numbers by the Swiss Armed Force. In the third section, we ask if the number of resources grow with the number of inhabitants and if the canton's <a href="#section3">wealth</a> has any influence
+                on the number of resources. Finally, a bipartite visualization is used to show the unbalanced <a href="#section4">gender</a> repartition in healthcare and how woman practionners may currently be more impacted during the pandemic as they
+                outnumber man practionners over the years.
             </p>
         </div>
         <!-- Interactive Map -->
@@ -55,17 +56,17 @@
             <div class="btnCholorpleth">
                 <div class="cholorplethButton" id="cholorpleth-beds"># Beds</div>
                 <div class="cholorplethButton" id="cholorpleth-doctors"># Doctors</div>
-                <div class="cholorplethButton activeCholorplethButton" id="cholorpleth-population">Population</div>
+                <div class="cholorplethButton activeCholorplethButton" id="cholorpleth-population">Density</div>
             </div>
         </div>
 
         <!-- Bar Graph -->
         <div class="sectionPanel" id="section2">
-            <h3> How did the number of intensive care unit beds increase with the pandemic ? </h3>
+            <h3> What is the difference between the number of certified ICU beds at the beginning the soft lockdown and the recent numbers listed by the Swiss Armed Force? </h3>
             <svg id="barChart" width="100%" height="80%" viewBox="0 0 1280 720"></svg>
-            <div class="bubbleBtn">
-                <div class="bubbleChartButton btnResources activeButton" id="test">Total</div>
-                <div class="bubbleChartButton btnResources" id="test">Normalized</div>
+            <div class="barBtn">
+                <div class="barChartButton activeBarChartButton" id="btn-total">Total</div>
+                <div class="barChartButton" id="btn-normalized">Normalized by density</div>
             </div>
         </div>
 
@@ -73,10 +74,10 @@
         <div class="sectionPanel" id="section3">
             <h3> Does the number of resources grow with the number of inhabitants ?</h3>
             <p class="sectionText">One can imagine that the more inhabitants per canton, the more hospital beds and doctors. However, the correlation is not so clear. For instance, in the number of doctors, we observe a disparty between blue and red bubbles - where the reds
-                represent the "rich" and the blues represent the cantons with a growth domestic product per capita equal or below the average. In this case, the red slope is steeper than the blue one and can be interpreted as a more significative increase
-                of resources per inhabitants for the rich cantons.
+                represent the "rich" and the blues represent the cantons with a growth domestic product per capita (GDPpc) equal or below the average. In this case, the red slope is steeper than the blue one and can be interpreted as a more significative
+                increase of resources per inhabitants for the rich cantons.
 
-                <br><br> For both resources, Zürich and Basel-Stadt appears as outliers. Basel-Stadt, one of the buisness center of Switzerland with less than 200’000 inhabitants, has the biggest growth domestic product per capita and the more resources.
+                <br><br> For both resources, Zürich and Basel-Stadt appears as outliers. Basel-Stadt, one of the buisiness center of Switzerland with less than 200’000 inhabitants, has the biggest growth domestic product per capita and the more resources.
                 As this could be seen as a <i> "wealthy-logic" </i> correlation, it is interesing to see that its numbers are far above the other red cantons’s trend. Zürich on the other hand, with the biggest population in Switzerland, has a number of
                 resources looking more similar to the blue trend despite its high growth domestic product per capita.
             </p>
@@ -84,7 +85,7 @@
             <div class="bubbleBtn">
                 <div class="bubbleChartButton btnResources" id="btn-beds"># Beds</div>
                 <div class="bubbleChartButton btnResources activeButton" id="btn-doctors"># Doctors</div>
-                <div class="bubbleChartButton btnRadius" id="btn-radius-w">GDP radius</div>
+                <div class="bubbleChartButton btnRadius" id="btn-radius">GDPpc radius</div>
             </div>
         </div>
 
@@ -100,21 +101,43 @@
 
         <!-- Source -->
         <div id="section5">
-            <h3 class="sectionSource"> Datasets</h3>
+            <h3> Datasets</h3>
             <p class="sectionSource">
-                <a href="https://opendata.swiss/en/dataset/ausgewahlte-indikatoren-im-regionalen-vergleich-2020-kantone" target="_blank">[1]</a><b> Regional comparison of selected indicators 2020</b> <br><i> Federal Statistical Office FSO - 28.01.2020</i>
-                <br>This dataset contains information per canton with indicators such as population density, growth domestic product per capita and health sector information such as the number of beds and the number of doctors per inhabitants. The number
-                of beds per inhabitants corresponds to the total number of beds, including intensive and acute care unit beds, clinical beds and psychiatric beds.
+                <a href="https://opendata.swiss/en/dataset/gesundheitsberufe-nach-geschlecht-diplomierungen-seit-1980" target="_blank">[1]</a>
+                <b> Professions de la santé selon le sexe: diplômes délivrés depuis 1980</b>
+                <br><i> Federal Statistical Office FSO - 2007 </i>
+                <br>Used for the bipartite graph (<a href="#section4">Gender</a>), this dataset spans over 20 years (1985-2005) which allows to analyse the trend over time. By plotting the male/female ratio for each category of jobs, we can see that the
+                gender gap is going down over the years for doctors and dentists but does not change (or even get bigger) for the nurses, caregivers and midwives. What is also very interesting in this dataset is that all the categories contains two columns
+                for male and female, except for the midwives. Is it really true that no man were practionners in this field before 2005 or it is just because the name of the function is gender-biased?
                 <br><br><br>
-                <a href="https://opendata.swiss/en/dataset/gesundheitsberufe-nach-geschlecht-diplomierungen-seit-1980" target="_blank">[2]</a><b> Professions de la santé selon le sexe: diplômes délivrés depuis 1980</b> <br><i> Federal Statistical Office FSO - 2007 </i>
-                <br>The dataset spans over 20 years (1985-2005) which allows to analyse the trend over time. By plotting the male/female ratio for each category of jobs, we can see that the gender gap is going down over the years for doctors and dentists
-                but does not change (or even get bigger) for the nurses, caregivers and midwives. What is also very interesting in this dataset is that all the categories contains two columns for male and female, except for the midwives. Is it really
-                true that no man were practionners in this field before 2005 or it is just because the name of the function is gender-biased?
+
+                <a href="https://opendata.swiss/en/dataset/ausgewahlte-indikatoren-im-regionalen-vergleich-2020-kantone" target="_blank">[2]</a>
+                <b> Regional comparison of selected indicators 2020</b>
+                <br><i> Federal Statistical Office FSO - 28.01.2020</i>
+                <br>Used for the map (<a href="#section1">General</a>) and the bubble chart (<a href="#section3">Weatlh</a>), this dataset contains information per canton with indicators such as population density, growth domestic product per capita and
+                health sector information such as the number of beds and the number of doctors per inhabitants. The number of beds per inhabitants corresponds to the total number of beds, including intensive and acute care unit beds, clinical beds and
+                psychiatric beds.
                 <br><br><br>
-                <a href="https://www.swiss-icu-cert.ch/fr/unites-de-soins-intensifs-certifiees.html" target="_blank">[3]</a><b> Liste zertifizierte (anerkannte) Intensivstationen</b> <br><i>  Swiss Society for Intensive Care Medicine (SGI/SSMI) - 23 March 2020 </i>
+
+                <a href="https://www.swiss-icu-cert.ch/fr/unites-de-soins-intensifs-certifiees.html" target="_blank">[3]</a>
+                <b> Liste zertifizierte (anerkannte) Intensivstationen</b>
+                <br><i>  Swiss Society for Intensive Care Medicine (SGI/SSMI) - 23 March 2020 </i>
+                <br> Used for the bar chart (<a href="#section2">ICU</a>)
                 <br><br><br>
-                <a href="https://icumonitoring.ch/" target="_blank">[4]</a><b> Near-real time monitoring of intensive care occupancy (IES system)
-                </b> <br><i>  Swiss Army Force - 13 May 2020 </i>
+
+                <a href="https://icumonitoring.ch/" target="_blank">[4]</a>
+                <b> Near-real time monitoring of intensive care occupancy (IES system)</b>
+                <br><i>  Swiss Armed Force - 13 May 2020 </i>
+                <br> Used for the bar chart (<a href="#section2">ICU</a>)
+                <br><br><br>
+
+                <a href=" https://github.com/topojson/topojson" target="_blank">[5]</a>
+                <b> TopoJSON from Switzerland</b>
+                <br><i>  Courtesy of the EPFL course COGN-480 </i>
+                <br> Used for the map(<a href="#section1">General</a>)
+                <br><br><br>
+
+
             </p>
         </div>
     </div>

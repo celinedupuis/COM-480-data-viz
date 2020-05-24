@@ -1,10 +1,3 @@
-let max;
-let min;
-let maxID;
-let minID;
-let isLegendSelected = false;
-let cholorplethMode = "cholorpleth-population";
-
 class SwissMap {
     constructor(map_data, svg_element_id) {
         this.svg = d3.select('#' + svg_element_id);
@@ -115,15 +108,16 @@ class SwissMap {
         this.svg.append('g')
             .append("text")
             .classed("instruction", true)
-            .text("Overlay or click on the legend")
+            .text("Click on the legend")
             .attr("transform", "translate(" + (legend_min_w + 1.25 * size_rect) + "," + (legend_min_h + 2 * size_rect) + ")");
 
+        // - instruction
         this.svg.append('g')
             .append("text")
             .classed("instruction", true)
             .text("to see which cantons correspond")
             .attr("transform", "translate(" + (legend_min_w + 1.25 * size_rect) + "," + (legend_min_h + 2.75 * size_rect) + ")");
-
+        // - instruction
         this.svg.append('g')
             .append("text")
             .classed("instruction", true)
@@ -139,71 +133,63 @@ class SwissMap {
             .style("font-size", 20)
             .attr("transform", "translate(" + legend_max_w + "," + (legend_max_h - size_rect) + ")");
 
-        function densityToString(density) {
-            if (density > 1000) {
-                density = Number(density).toFixed(0).toString()[0] + "'" + Number(density).toFixed(0).toString().substr(1, 3) + "'000 inhabitants";
-            } else {
-                density = Number(density).toFixed(0).toString() + "'000 inhabitants";
-            }
-            return density;
-        }
+        // Interaction
+        let cholorplethMode = "cholorpleth-population";
+        let isLegendSelected = false;
+        let legendMaxID;
+        let legendMinID;
+        let legendMaxValue;
+        let legendMinValue;
 
-        // Interaction Cholorpleth Legend
+        // - with legends
         d3.selectAll("#legend-max")
-            .on("mouseover", function() {
-                overlayLegend();
-            })
-            .on("mouseout", function() {
-                if (!isLegendSelected) {
+            .on("click", function() {
+                isLegendSelected = !isLegendSelected;
+                if (isLegendSelected) {
+                    overlayLegend();
+                } else {
                     changeCholorpleth();
                 }
             })
-            .on("click", function() {
-                isLegendSelected = !isLegendSelected;
-            })
-
 
         d3.selectAll("#legend-min")
-            .on("mouseover", function() {
-                overlayLegend();
-            })
-            .on("mouseout", function() {
-                if (!isLegendSelected) {
-                    changeCholorpleth();
-                }
-            })
             .on("click", function() {
                 isLegendSelected = !isLegendSelected;
+                if (isLegendSelected) {
+                    overlayLegend();
+                } else {
+                    changeCholorpleth();
+                }
             })
 
         function overlayLegend() {
             switch (cholorplethMode) {
                 case "cholorpleth-population":
-                    max = d3.max(map_data, d => d.properties.density);
-                    min = d3.min(map_data, d => d.properties.density);
-                    maxID = map_data.filter(canton => canton.properties.density == max)[0].properties.name;
-                    minID = map_data.filter(canton => canton.properties.density == min)[0].properties.name;
+                    legendMaxValue = d3.max(map_data, d => d.properties.density);
+                    legendMinValue = d3.min(map_data, d => d.properties.density);
+                    legendMaxID = map_data.filter(canton => canton.properties.density == legendMaxValue)[0].properties.name;
+                    legendMinID = map_data.filter(canton => canton.properties.density == legendMinValue)[0].properties.name;
                     break;
                 case "cholorpleth-beds":
-                    max = d3.max(map_data, d => d.properties.beds);
-                    min = d3.min(map_data, d => d.properties.beds);
-                    maxID = map_data.filter(canton => canton.properties.beds == max)[0].properties.name;
-                    minID = map_data.filter(canton => canton.properties.beds == min)[0].properties.name;
+                    legendMaxValue = d3.max(map_data, d => d.properties.beds);
+                    legendMinValue = d3.min(map_data, d => d.properties.beds);
+                    legendMaxID = map_data.filter(canton => canton.properties.beds == legendMaxValue)[0].properties.name;
+                    legendMinID = map_data.filter(canton => canton.properties.beds == legendMinValue)[0].properties.name;
                     break;
                 case "cholorpleth-doctors":
-                    max = d3.max(map_data, d => d.properties.doctors);
-                    min = d3.min(map_data, d => d.properties.doctors);
-                    maxID = map_data.filter(canton => canton.properties.doctors == max)[0].properties.name;
-                    minID = map_data.filter(canton => canton.properties.doctors == min)[0].properties.name;
+                    legendMaxValue = d3.max(map_data, d => d.properties.doctors);
+                    legendMinValue = d3.min(map_data, d => d.properties.doctors);
+                    legendMaxID = map_data.filter(canton => canton.properties.doctors == legendMaxValue)[0].properties.name;
+                    legendMinID = map_data.filter(canton => canton.properties.doctors == legendMinValue)[0].properties.name;
                     break;
             }
             d3.selectAll(".legend-max-text")
-                .text("Max: " + maxID);
+                .text("Max: " + legendMaxID);
             d3.selectAll(".legend-min-text")
-                .text("Min: " + minID)
+                .text("Min: " + legendMinID)
         }
 
-        // Interaction Cholorpleth Mode
+        // - with buttons
         d3.selectAll(".cholorplethButton")
             .on("click", function() {
                 isLegendSelected = false;
@@ -250,6 +236,15 @@ class SwissMap {
                         .text("Min: " + Number(d3.min(map_data, d => d.properties.doctors)).toFixed(1) + " per 1000 inhabitants")
                     break;
             }
+        }
+
+        function densityToString(density) {
+            if (density > 1000) {
+                density = Number(density).toFixed(0).toString()[0] + "'" + Number(density).toFixed(0).toString().substr(1, 3) + "'000 inhabitants";
+            } else {
+                density = Number(density).toFixed(0).toString() + "'000 inhabitants";
+            }
+            return density;
         }
     }
 }

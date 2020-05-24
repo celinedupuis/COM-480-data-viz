@@ -19,8 +19,10 @@
         font-style: normal;
         font-variant: normal;
         font-weight: 700;
-        line-height: 15.4px;
-        padding-top: 45px;
+        line-height: 20.4px;
+        padding-top: 64px;
+        max-width: 800px;
+        margin: auto;
     }
     
     p {
@@ -102,17 +104,33 @@
         color: #808080;
         bottom: 0;
     }
-    /* Labels */
+    /* Labels and legends */
     
     .label,
     .label-canton,
     .label-bubble,
-    .label-chart,
+    .label-bar,
     .label-gdp {
         font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         fill-opacity: 1;
         fill: rgb(255, 255, 255);
         font-size: 14px;
+    }
+    
+    .label-bipartite {
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
+        fill-opacity: 1;
+        fill: rgb(255, 255, 255);
+        font-size: 16px;
+    }
+    
+    .legend-bar,
+    .legend-bubble {
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
+        fill-opacity: 1;
+        fill: rgb(255, 255, 255);
+        font-size: 14px;
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
     }
     
     .instruction {
@@ -123,44 +141,10 @@
         fill: grey;
         fill-opacity: 1;
     }
-    /* MAP */
+    /* Buttons */
     
-    .canton {
-        stroke-width: 0.5px;
-        stroke: rgb(255, 255, 255);
-    }
-    
-    .cholorplethButton {
-        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
-        cursor: pointer;
-        border: 1px solid grey;
-        outline-style: solid;
-        outline-width: 0.3px;
-        display: inline-block;
-        padding: 8px 14px;
-        margin: 10px;
-        font-size: 12px;
-        width: 120px;
-    }
-    
-    .cholorplethButton:hover {
-        outline-width: 3px;
-    }
-    
-    .activeCholorplethButton {
-        border: 1px solid #F95151;
-    }
-    
-    .btnCholorpleth {
-        margin-top: 0px;
-    }
-    
-    .sectionIcons {
-        max-width: 600px;
-        margin: 0 auto;
-    }
-    /* BUBBLE CHART */
-    
+    .cholorplethButton,
+    .barChartButton,
     .bubbleChartButton {
         font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
         cursor: pointer;
@@ -174,17 +158,52 @@
         width: 120px;
     }
     
-    .bubbleChartButton:hover {
-        outline-width: 3px;
+    .barChartButton {
+        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
+        cursor: pointer;
+        border: 1px solid grey;
+        outline-style: solid;
+        outline-width: 0.3px;
+        display: inline-block;
+        padding: 8px 14px;
+        margin: 10px;
+        font-size: 12px;
+        width: 160px;
     }
     
-    .activeButton {
+    .activeButton,
+    .activeBarChartButton,
+    .activeCholorplethButton {
         border: 1px solid #F95151;
     }
     
-    .bubbleBtn {
+    .btnCholorpleth {
+        margin-top: 0px;
+    }
+    
+    .bubbleBtn,
+    .barBtn {
         margin-top: -100px;
     }
+    /* MAP */
+    
+    .canton {
+        stroke-width: 0.5px;
+        stroke: rgb(255, 255, 255);
+    }
+    
+    .sectionIcons {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    /* BAR CHART */
+    
+    .red-bar,
+    .blue-bar {
+        stroke-width: 0.5px;
+        stroke: white;
+    }
+    /* BUBBLE CHART */
     
     circle {
         stroke: white;
@@ -198,22 +217,7 @@
     .bubble-red {
         fill: #F95151;
     }
-    
-    .legend-bubble {
-        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
-        fill-opacity: 1;
-        fill: rgb(255, 255, 255);
-        font-size: 14px;
-        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
-    }
     /* BIPARTITE */
-    
-    .label-bipartite {
-        font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
-        fill-opacity: 1;
-        fill: rgb(255, 255, 255);
-        font-size: 16px;
-    }
     
     .mainBars {
         font-family: "Futura", "Trebuchet MS", Arial, sans-serif;
@@ -259,6 +263,7 @@
             max-width: 8%;
             height: auto;
         }
+        .cholorplethButton,
         .bubbleChartButton {
             border: 1px solid grey;
             outline-style: solid;
@@ -268,16 +273,22 @@
             font-size: 8px;
             width: 70px;
         }
-        .bubbleBtn {
-            margin-top: -20px;
-        }
-        .cholorplethButton {
+        .barChartButton {
             border: 1px solid grey;
             outline-style: solid;
             outline-width: 0.3px;
             padding: 3px 0px;
             margin: 1px;
             font-size: 8px;
-            width: 70px;
+            width: 110px;
+        }
+        .activeButton,
+        .activeBarChartButton,
+        .activeCholorplethButton {
+            border: 1px solid #F95151;
+        }
+        .bubbleBtn,
+        .barBtn {
+            margin-top: -30px;
         }
     }

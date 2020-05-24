@@ -1,8 +1,3 @@
-let isPhysicalResourceMode = false;
-let isBubbleRadiusUniform = true;
-let isSubsetSelected = false;
-let clickOnRed = false;
-
 class BubbleChart {
     constructor(map_data, svg_element_id) {
         this.svg = d3.select('#' + svg_element_id);
@@ -21,7 +16,6 @@ class BubbleChart {
 
         // Scale to svg coordinate
         // x-axis
-        const label_padding = 40;
         const x_range = [0, d3.max(map_data, d => d.properties.density)];
         const x_scale = d3.scaleLinear()
             .domain(x_range)
@@ -81,6 +75,7 @@ class BubbleChart {
             .attr('y', d => this.y_scale(d.properties.doctors))
 
         // Draw legend
+        const label_padding = 40;
         const legend_blue_w = this.chart_width * 4 / 5;
         const legend_blue_h = 180;
         const legend_red_w = this.chart_width * 4 / 5;
@@ -111,7 +106,7 @@ class BubbleChart {
             .append("text")
             .attr("id", "legend-blue")
             .classed("legend-bubble", true)
-            .text("GDP below or equal to average")
+            .text("GDPpc below or equal to average")
             .attr("transform", "translate(" + (legend_blue_w + 1.25 * size_rect) + "," + (legend_blue_h + 0.75 * size_rect) + ")")
 
         // - GDP above average
@@ -119,24 +114,24 @@ class BubbleChart {
             .append("text")
             .attr("id", "legend-red")
             .classed("legend-bubble", true)
-            .text("GDP above average")
+            .text("GDPpc above average")
             .attr("transform", "translate(" + (legend_red_w + 1.25 * size_rect) + "," + (legend_red_h + 0.75 * size_rect) + ")")
 
         // - instruction
         this.svg.append('g')
             .append("text")
             .classed("instruction", true)
-            .text("Overlay or click on the legend")
+            .text("Click on the legend to select")
             .attr("transform", "translate(" + (legend_red_w + 1.25 * size_rect) + "," + (legend_red_h + 2 * size_rect) + ")")
 
         // - instruction
         this.svg.append('g')
             .append("text")
             .classed("instruction", true)
-            .text("to select only the red or the blue bubbles")
+            .text("only the red or the blue bubbles")
             .attr("transform", "translate(" + (legend_red_w + 1.25 * size_rect) + "," + (legend_red_h + 2.75 * size_rect) + ")")
 
-        // Draw axis label
+        // - title
         this.svg.append('g')
             .append('text')
             .text("# Doctors")
@@ -149,93 +144,26 @@ class BubbleChart {
             .text("per 1000 inhabitants")
             .classed("label", true)
             .attr("transform", "translate(" + (legend_blue_w) + "," + (legend_blue_h - 0.5 * label_padding) + ")");
-        // - population
+
+        // - x-axis label 
         this.svg.append('g')
             .append('text')
             .text("Inhabitants in 1000")
             .classed("label", true)
             .attr("transform", "translate(" + (this.chart_width * 0.95) + "," + (this.chart_height * 1.5 + label_padding) + ")");
 
-        // Interaction Bubble Chart Radius
-        d3.selectAll("#btn-radius-w")
+        // Interaction 
+        let isPhysicalResourceMode = false;
+        let isBubbleRadiusUniform = true;
+        let isSubsetSelected = false;
+        let clickOnRed = false;
+
+        // - with buttons
+        d3.selectAll("#btn-radius")
             .on("click", function() {
                 setUniformRadius();
             })
 
-        function setUniformRadius() {
-            isBubbleRadiusUniform = !isBubbleRadiusUniform;
-            d3.selectAll(".bubble")
-                .transition()
-                .duration(duration_transition)
-                .attr("r", isBubbleRadiusUniform ? bubble_radius : d => d.properties.gdpPerCapita);
-            d3.selectAll(".label-bubble")
-                .transition()
-                .duration(duration_transition)
-                .attr('x', d => isBubbleRadiusUniform ? x_scale(d.properties.density) - bubbleChart.bubble_label_shift : x_scale(d.properties.density) - d.properties.gdpPerCapita - label_padding / 8)
-                .attr('y', d => isBubbleRadiusUniform ? (isPhysicalResourceMode ? bubbleChart.y_scale(d.properties.beds) - 1.25 * bubble_radius : bubbleChart.y_scale(d.properties.doctors) - 1.25 * bubble_radius) : (isPhysicalResourceMode ? bubbleChart.y_scale(d.properties.beds) - d.properties.gdpPerCapita - label_padding / 8 : bubbleChart.y_scale(d.properties.doctors) - d.properties.gdpPerCapita - label_padding / 8))
-        }
-
-        // Interaction Bubble Chart Legend
-        d3.selectAll("#legend-red")
-            .on("click", function() {
-                isSubsetSelected = !isSubsetSelected;
-            })
-            .on("mouseover", function() {
-                clickOnRed = true;
-                selectSubsetBubble();
-            })
-            .on("mouseout", function() {
-                if (!isSubsetSelected) {
-                    unselectSubsetBubble();
-                }
-            })
-
-        d3.selectAll("#legend-blue")
-            .on("click", function() {
-                isSubsetSelected = !isSubsetSelected;
-            })
-            .on("mouseover", function() {
-                clickOnRed = false;
-                selectSubsetBubble();
-            })
-            .on("mouseout", function() {
-                if (!isSubsetSelected) {
-                    unselectSubsetBubble();
-                }
-            })
-
-
-        function selectSubsetBubble() {
-            d3.selectAll("#legend-red")
-                .style("font-size", clickOnRed ? font_size_default * 1.25 : font_size_default * 0.5)
-            d3.selectAll("#legend-blue")
-                .style("font-size", clickOnRed ? font_size_default * 0.5 : font_size_default * 1.25)
-            d3.selectAll(".bubble")
-                .transition()
-                .duration(duration_transition / 2)
-                .style('opacity', clickOnRed ? (d => d.properties.gdpPerCapita > bubbleChart.threshold ? opacity_default : 0) : (d => d.properties.gdpPerCapita <= bubbleChart.threshold ? opacity_default : 0));
-            d3.selectAll(".label-bubble")
-                .transition()
-                .duration(duration_transition / 2)
-                .style('opacity', clickOnRed ? (d => d.properties.gdpPerCapita > bubbleChart.threshold ? opacity_default : 0) : (d => d.properties.gdpPerCapita <= bubbleChart.threshold ? opacity_default : 0));
-        }
-
-        function unselectSubsetBubble() {
-            d3.selectAll(".bubble")
-                .transition()
-                .duration(duration_transition / 2)
-                .style('opacity', 1);
-            d3.selectAll(".label-bubble")
-                .transition()
-                .duration(duration_transition / 2)
-                .style('opacity', 1);
-            d3.selectAll("#legend-red")
-                .style("font-size", font_size_default)
-            d3.selectAll("#legend-blue")
-                .style("font-size", font_size_default)
-        }
-
-        // Interaction Bubble Resource Mode
         d3.selectAll("#btn-beds")
             .on("click", function() {
                 changeMode(true);
@@ -270,6 +198,84 @@ class BubbleChart {
                 .attr('y', d => isPhysicalResourceMode ? bubbleChart.y_scale(d.properties.beds) - bubbleChart.bubble_label_shift : bubbleChart.y_scale(d.properties.doctors) - bubbleChart.bubble_label_shift)
             d3.selectAll(".label-gdp")
                 .attr('y', d => isPhysicalResourceMode ? bubbleChart.y_scale(d.properties.beds) : bubbleChart.y_scale(d.properties.doctors))
+        }
+
+        function setUniformRadius() {
+            isBubbleRadiusUniform = !isBubbleRadiusUniform;
+            d3.selectAll(".bubble")
+                .transition()
+                .duration(duration_transition)
+                .attr("r", isBubbleRadiusUniform ? bubble_radius : d => d.properties.gdpPerCapita);
+            d3.selectAll(".label-bubble")
+                .transition()
+                .duration(duration_transition)
+                .attr('x', d => isBubbleRadiusUniform ? x_scale(d.properties.density) - bubbleChart.bubble_label_shift : x_scale(d.properties.density) - d.properties.gdpPerCapita - label_padding / 8)
+                .attr('y', d => isBubbleRadiusUniform ? (isPhysicalResourceMode ? bubbleChart.y_scale(d.properties.beds) - 1.25 * bubble_radius : bubbleChart.y_scale(d.properties.doctors) - 1.25 * bubble_radius) : (isPhysicalResourceMode ? bubbleChart.y_scale(d.properties.beds) - d.properties.gdpPerCapita - label_padding / 8 : bubbleChart.y_scale(d.properties.doctors) - d.properties.gdpPerCapita - label_padding / 8))
+        }
+
+        // - with legend
+        d3.selectAll("#legend-red")
+            .on("click", function() {
+                if (isSubsetSelected && !clickOnRed) {
+                    clickOnRed = true;
+                    isSubsetSelected = true;
+                    selectSubsetBubble();
+                } else if (!isSubsetSelected) {
+                    clickOnRed = true;
+                    isSubsetSelected = true;
+                    selectSubsetBubble();
+                } else if (isSubsetSelected && clickOnRed) {
+                    clickOnRed = false;
+                    isSubsetSelected = false;
+                    unselectSubsetBubble();
+                }
+            })
+
+        d3.selectAll("#legend-blue")
+            .on("click", function() {
+                if (isSubsetSelected && !clickOnRed) {
+                    clickOnRed = false;
+                    isSubsetSelected = false;
+                    unselectSubsetBubble();
+                } else if (!isSubsetSelected) {
+                    clickOnRed = false;
+                    isSubsetSelected = true;
+                    selectSubsetBubble();
+                } else if (isSubsetSelected && clickOnRed) {
+                    clickOnRed = false;
+                    isSubsetSelected = true;
+                    selectSubsetBubble();
+                }
+            })
+
+        function selectSubsetBubble() {
+            d3.selectAll("#legend-red")
+                .style("font-size", clickOnRed ? font_size_default * 1.25 : font_size_default * 0.5)
+            d3.selectAll("#legend-blue")
+                .style("font-size", clickOnRed ? font_size_default * 0.5 : font_size_default * 1.25)
+            d3.selectAll(".bubble")
+                .transition()
+                .duration(duration_transition / 2)
+                .style('opacity', clickOnRed ? (d => d.properties.gdpPerCapita > bubbleChart.threshold ? opacity_default : 0) : (d => d.properties.gdpPerCapita <= bubbleChart.threshold ? opacity_default : 0));
+            d3.selectAll(".label-bubble")
+                .transition()
+                .duration(duration_transition / 2)
+                .style('opacity', clickOnRed ? (d => d.properties.gdpPerCapita > bubbleChart.threshold ? opacity_default : 0) : (d => d.properties.gdpPerCapita <= bubbleChart.threshold ? opacity_default : 0));
+        }
+
+        function unselectSubsetBubble() {
+            d3.selectAll(".bubble")
+                .transition()
+                .duration(duration_transition / 2)
+                .style('opacity', 1);
+            d3.selectAll(".label-bubble")
+                .transition()
+                .duration(duration_transition / 2)
+                .style('opacity', 1);
+            d3.selectAll("#legend-red")
+                .style("font-size", font_size_default)
+            d3.selectAll("#legend-blue")
+                .style("font-size", font_size_default)
         }
     }
 }
