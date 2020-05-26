@@ -259,6 +259,9 @@
         .sectionPanel {
             padding-top: 16px;
         }
+        .sectionSource {
+            font-size: 9px;
+        }
         .icon {
             max-width: 8%;
             height: auto;
