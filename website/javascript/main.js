@@ -327,7 +327,7 @@ whenDocumentLoaded(() => {
                 .attr("y", (barChart.chart_height * 3 / 4) + 30)
 
             d3.selectAll(".yaxis-label-bar")
-                .text(d => isNormalized ? "# ICU beds (normalized by density)" : "# ICU Beds")
+                .text(d => isNormalized ? "# ICU Beds (normalized by density)" : "# ICU Beds")
         }
     });
 });
