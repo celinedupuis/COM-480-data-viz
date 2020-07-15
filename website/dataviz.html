@@ -30,8 +30,8 @@
                 Recent datasets as well as historical data<sup><a href="#section5">*</a></sup> are used in the following page to illustrate the healthcare resources in Switzerland. The interactive map allows to select the canton for which you seek
                 <a href="#section1">general</a> informations. It will automatically select the same canton on the other visualizations. In the second section, we compare the number of <a href="#section2">ICU</a> beds per canton certified at the beginning
                 of the soft lockdown and the recent listed numbers by the Swiss Armed Force. In the third section, we ask if the number of resources grow with the number of inhabitants and if the canton's <a href="#section3">wealth</a> has any influence
-                on the number of resources. Finally, a bipartite visualization is used to show the unbalanced <a href="#section4">gender</a> repartition in healthcare and how woman practionners may currently be more impacted during the pandemic as they
-                outnumber man practionners over the years.
+                on the number of resources. Finally, a bipartite visualization is used to show the unbalanced <a href="#section4">gender</a> repartition in healthcare and how woman practitioners may currently be more impacted during the pandemic as they
+                outnumber man practitioners over the years.
             </p>
         </div>
         <!-- Interactive Map -->
@@ -78,9 +78,9 @@
                 represent the "rich" and the blues represent the cantons with a growth domestic product per capita (GDPpc) equal or below the average. In this case, the red slope is steeper than the blue one and can be interpreted as a more significative
                 increase of resources per inhabitants for the rich cantons.
 
-                <br><br> For both resources, Zürich and Basel-Stadt appears as outliers. Basel-Stadt, one of the buisiness center of Switzerland with less than 200’000 inhabitants, has the biggest growth domestic product per capita and the more resources.
-                As this could be seen as a <i> "wealthy-logic" </i> correlation, it is interesing to see that its numbers are far above the other red cantons’s trend. Zürich on the other hand, with the biggest population in Switzerland, has a number of
-                resources looking more similar to the blue trend despite its high growth domestic product per capita.
+                <br><br> For both resources, Zürich and Basel-Stadt appear as outliers. Basel-Stadt, one of the business center of Switzerland with less than 200’000 inhabitants, has the biggest growth domestic product per capita and the more resources,
+                with its numbers far above the other red cantons’s trend. Zürich on the other hand, with the biggest population in Switzerland, has a number of resources looking more similar to the blue trend despite its high growth domestic product per
+                capita.
             </p>
             <svg id="bubbleChart" width="100%" height="80%" viewBox="0 0 1280 720"></svg>
             <div class="bubbleBtn">
@@ -92,10 +92,11 @@
 
         <!-- Bipartite Graph -->
         <div class="sectionPanel" id="section4">
-            <h3> What is the gender repartition in healthcare practionners ? </h3>
+            <h3> What is the gender repartition in healthcare practitioners ? </h3>
             <p class="sectionText"> Between 1985 and 2005, 81% of women for only 19% of men obtained a diploma in healthcare. What is even more striking is the gender gap between high-paying jobs and less-paying jobs. Indeed, over ten years, 93% of woman studied to become caregivers,
                 nurses and midwives, whereas only 38% received a diploma to become a dentist or a doctor. As salary equity is often used as an argument to show gender equality in an industry, the access to high-paying jobs should also be given for the
-                sake of transparency; it still remains more difficult for women to access top-management postions and "prestigious" occupations. The following interactive dataviz entitles to show this disparity in healthcare.
+                sake of transparency; it still remains more difficult for women to access top-management postions and "prestigious" occupations. The following interactive dataviz entitles to show this disparity in healthcare studies. Note that in the
+                dataset, gender was considered as a binary.
             </p>
             <svg id="bipartite" width="100%" height="80%" viewBox="0 0 1280 720"></svg>
         </div>
@@ -109,7 +110,7 @@
                 <br><i> Federal Statistical Office FSO - 2007 </i>
                 <br>Used for the bipartite graph (<a href="#section4">Gender</a>), this dataset spans over 20 years (1985-2005) which allows to analyse the trend over time. By plotting the male/female ratio for each category of jobs, we can see that the
                 gender gap is going down over the years for doctors and dentists but does not change (or even get bigger) for the nurses, caregivers and midwives. What is also very interesting in this dataset is that all the categories contains two columns
-                for male and female, except for the midwives. Is it really true that no man were practionners in this field before 2005 or it is just because the name of the function is gender-biased?
+                for male and female, except for the midwives. Is it really true that no man studied in this field before 2005 or it is just because the name of the function is gender-biased?
                 <br><br><br>
 
                 <a href="https://opendata.swiss/en/dataset/ausgewahlte-indikatoren-im-regionalen-vergleich-2020-kantone" target="_blank">[2]</a>
