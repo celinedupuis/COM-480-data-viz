@@ -8,11 +8,9 @@ On top of the demographic analysis, I was willing to ask social justice question
 
 ## Main results
 **Website** 
-
 https://celinedupuis.ch/com480/dataviz.html
 
 **Screencast**
-
 https://youtu.be/lT05Uxnk3SQ
 
 
